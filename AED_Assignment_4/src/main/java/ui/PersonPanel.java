@@ -400,6 +400,13 @@ public class PersonPanel extends javax.swing.JPanel {
         String strZipCode = txtZip.getText();
         String phoneNo = txtPhone.getText();
         String maritalStatus = getMartialStatus();
+        if (firstName.isEmpty()||lastName.isEmpty()||strAge.isEmpty()|| houseNumber.isEmpty()
+            || streetName.isEmpty() || strCommunity.isEmpty() || strCity.isEmpty()
+            || state.isEmpty() || strZipCode.isEmpty() || phoneNo.isEmpty() || sex.isEmpty() || maritalStatus.isEmpty())
+        {
+            JOptionPane.showMessageDialog(this, "One or More fields are empty..!", "Empty Fields", 2);
+            return;
+        }
         
         if (!isNumber(strAge))
         {
@@ -419,14 +426,8 @@ public class PersonPanel extends javax.swing.JPanel {
             return;
         }
         
-        if (firstName.isEmpty()||lastName.isEmpty()||strAge.isEmpty()|| houseNumber.isEmpty()
-            || streetName.isEmpty() || strCommunity.isEmpty() || strCity.isEmpty()
-            || state.isEmpty() || strZipCode.isEmpty() || phoneNo.isEmpty() || sex.isEmpty() || maritalStatus.isEmpty())
-        {
-            JOptionPane.showMessageDialog(this, "One or More fields are empty..!", "Empty Fields", 2);
-        }
-        else
-        {
+        
+        
             int age = Integer.parseInt(strAge);
             int zipcode = Integer.parseInt(strZipCode);
             City city = new City(strCity);
@@ -439,7 +440,7 @@ public class PersonPanel extends javax.swing.JPanel {
 
             JOptionPane.showMessageDialog(this, "Person information added successfully.!!", "Added person",1);
             clearField();
-        }
+        
     }//GEN-LAST:event_btnAddPersonActionPerformed
 
     private void btnUpdatePersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdatePersonActionPerformed
@@ -457,34 +458,41 @@ public class PersonPanel extends javax.swing.JPanel {
         String updatephoneNo = txtPhone.getText();
         String updateMaritalStatus = getMartialStatus();
         
-        if (!isNumber(updatestrAge))
-        {
-            JOptionPane.showMessageDialog(null,"Invalid Age. Please insert a number to update");
-        }
-        
-        if (!isNumber(updatestrzipCode))
-        {
-            JOptionPane.showMessageDialog(null,"Invalid Zip Code. Please insert a number to update");
-        }
-        
-        if (!updatephoneNo.matches("^\\d{10}$"))
-        {
-            JOptionPane.showMessageDialog(null,"Enter a valid phone number to update");
-            return;
-        }
-        
         int updateage = Integer.parseInt(updatestrAge);
         int updatezip = Integer.parseInt(updatestrzipCode);
 
-        if (txtFname.getText().isEmpty()||txtLname.getText().isEmpty()||txtAge.getText().isEmpty()|| txtHno.getText().isEmpty()
+            if (txtFname.getText().isEmpty()||txtLname.getText().isEmpty()||txtAge.getText().isEmpty()|| txtHno.getText().isEmpty()
             || txtStreet.getText().isEmpty() || boxCommunity.getSelectedItem().toString().isEmpty() || txtCity.getText().isEmpty()
             || txtState.getText().isEmpty() || txtZip.getText().isEmpty() || txtPhone.getText().isEmpty() || updatesex.isEmpty() || updateMaritalStatus.isEmpty())
-        {
-            JOptionPane.showMessageDialog(this, "One or More fields are empty..!", "Empty Fields",2);
-        }
+            
+            {
+                
+                JOptionPane.showMessageDialog(this, "One or More fields are empty..!", "Empty Fields",2);
+                return;
+           
+            }
+        
+            if (!isNumber(updatestrAge))
+            {
+                JOptionPane.showMessageDialog(null,"Invalid Age. Please insert a number to update");
+                return;
+            }
+
+            if (!isNumber(updatestrzipCode))
+            {
+                JOptionPane.showMessageDialog(null,"Invalid Zip Code. Please insert a number to update");
+                return;
+            }
+
+            if (!updatephoneNo.matches("^\\d{10}$"))
+            {
+                JOptionPane.showMessageDialog(null,"Enter a valid phone number to update");
+                return;
+            }
 
         else
         {
+            
 
             City city = new City(updatecity);
             Community community = new Community(updatecommunity, city);
@@ -579,7 +587,7 @@ public class PersonPanel extends javax.swing.JPanel {
             
             for(Person person : personDirectory.getPersonDirectory()){
                 House house = person.getHouse();
-                if(community.equals("None") || community.equals(house.getCommunity())){
+                if(community.equals("None") || community.equals(house.getCommunity().getCommunityName())){
                     if((fName.isEmpty() || fName.equalsIgnoreCase(person.getFirstName())) && (lName.isEmpty() || lName.equalsIgnoreCase(person.getLastName())))
                         searchedList.add(person);
                 }

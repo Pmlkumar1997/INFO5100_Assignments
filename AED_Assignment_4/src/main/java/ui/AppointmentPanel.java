@@ -410,18 +410,44 @@ public class AppointmentPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-
+        
+        
+//        int dialogButton = JOptionPane.YES_NO_OPTION;
+//        int dialogResult = JOptionPane.showConfirmDialog(this, "Delete this data", "Delete", dialogButton);
+//        if(dialogResult == 0){
+//        String selectedPatientId = model.getValueAt(row, 0).toString();
+//        Patient patient = patientDirectory.getPatient(selectedPatientId);
+//        EncounterHistory eh = patient.getEncounterHistory();
+//        eh.removeEncounterAtIndex(row);
+//        model.removeRow(row);
+//        //model.setRowCount(0);
+//        displayEncounters(eh.getEncounterDirectory(), patient);
+//        clearSaveFields();
+//        } 
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Delete this data", "Delete", dialogButton);
+        if(dialogResult == 0){
+            String selectedPatientId = model.getValueAt(row, 0).toString();
+        Patient patient = patientDirectory.getPatient(selectedPatientId);
+        EncounterHistory eh = patient.getEncounterHistory();
+        eh.removeEncounterAtIndex(row);
+        
+        model.setRowCount(0);
+        displayEncounters(eh.getEncounterDirectory(), patient);
+        clearSaveFields();
+        } 
         String selectedPatientId = model.getValueAt(row, 0).toString();
         Patient patient = patientDirectory.getPatient(selectedPatientId);
         EncounterHistory eh = patient.getEncounterHistory();
         eh.removeEncounterAtIndex(row);
+        
         model.setRowCount(0);
-        displayEncounters(eh.getEncounterDirectory(), patient);
-
+        displayEncounters(eh.getEncounterDirectory(), patient);   
+        
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-
+        String[] months = {"Month", "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
         String selectedPatientId = model.getValueAt(row, 0).toString();
         String patientId = txtPatientID.getText();
         String strSysPressure = txtSystolic.getText();
@@ -450,6 +476,15 @@ public class AppointmentPanel extends javax.swing.JPanel {
             int diaPresure = Integer.parseInt(strDiaPressure);
             int pulse = Integer.parseInt(strPulse);
             int month = 0;
+        int N = months.length ;
+        for(int m = 0; m<N;m++){
+            
+            if (strMonth.equals(months[m])){
+                
+                month = m++;
+                break;
+            }
+        }
             int date = Integer.parseInt(strDate);
             int year = Integer.parseInt(strYear);
             for(int i = 0; i<monthNames.length; i++) { if (monthNames[i].equalsIgnoreCase(strMonth)) month = i+1;}
@@ -483,13 +518,14 @@ public class AppointmentPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnViewAllEncActionPerformed
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
-
+        model.setRowCount(0);
         String patientID = txtSearchID.getText();
         String fName = txtSearchFname.getText();
         String lName = txtSearchLname.getText();
 
         if(patientID.isEmpty() && fName.isEmpty() && lName.isEmpty() ){
             JOptionPane.showMessageDialog(this, "All view fields are empty.!! Please check", "Empty Fields", 2);
+            
 
         }
         else if (!patientID.isEmpty() && patientDirectory.isValidPatientId(patientID))
@@ -504,11 +540,13 @@ public class AppointmentPanel extends javax.swing.JPanel {
             if (!fName.isEmpty() && !fName.equals(patient.getFirstName()))
             {
                 JOptionPane.showMessageDialog(this, "First Name and patien Id doesnot match.!!Please Check", "Invalid Details", 2);
+                return;
             }
 
             if (!lName.isEmpty() && !lName.equals(patient.getLastName()))
             {
                 JOptionPane.showMessageDialog(this, "Last Name and patien Id doesnot match.!!Please Check", "Invalid Details", 2);
+                return;
             }
             model.setRowCount(0);
             EncounterHistory encounterHistory = patient.getEncounterHistory();
@@ -521,10 +559,12 @@ public class AppointmentPanel extends javax.swing.JPanel {
             List<Patient> patientList = patientDirectory.getPatientDirectory();
             for(Patient patient : patientList){
 
-                if((fName.isEmpty() || fName.equals(patient.getFirstName())) && (fName.isEmpty() || fName.equals(patient.getFirstName()))){
+                if((fName.isEmpty() || fName.equals(patient.getFirstName())) && (lName.isEmpty() || lName.equals(patient.getLastName() ))){
                     EncounterHistory encounterHistory = patient.getEncounterHistory();
                     displayEncounters(encounterHistory.getEncounterDirectory(), patient);
                 }
+                
+               
             }
         }
 
@@ -535,6 +575,7 @@ public class AppointmentPanel extends javax.swing.JPanel {
         model.setRowCount(0);
         clearSaveFields();
         clearSearchFields();
+        clearViewFields();
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void boxMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxMonthActionPerformed
@@ -595,7 +636,7 @@ public class AppointmentPanel extends javax.swing.JPanel {
 
     private void btnSaveAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveAppointmentActionPerformed
 
-        
+        String[] months = {"Month", "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
         String patientId = txtPatientID.getText();
         String strSysPressure = txtSystolic.getText();
         String strDiaPressure  = txtDiastolic.getText();
@@ -620,6 +661,15 @@ public class AppointmentPanel extends javax.swing.JPanel {
             int diaPresure = Integer.parseInt(strDiaPressure);
             int pulse = Integer.parseInt(strPulse);
             int month = 0;
+        int N = months.length ;
+        for(int m = 0; m<N;m++){
+            
+            if (strMonth.equals(months[m])){
+                
+                month = m++;
+                break;
+            }
+        }
             int date = Integer.parseInt(strDate);
             int year = Integer.parseInt(strYear);
             
@@ -643,6 +693,22 @@ public class AppointmentPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSaveAppointmentActionPerformed
 
     private void tableAppointmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAppointmentMouseClicked
+
+//        row = tableAppointment.getSelectedRow();
+//
+//        txtPatientID.setText(model.getValueAt(row, 0).toString());
+//        txtDiastolic.setText(model.getValueAt(row, 3).toString().split("/")[1]);
+//        txtSystolic.setText(model.getValueAt(row, 3).toString().split("/")[0]);
+//        txtPulse.setText(model.getValueAt(row, 4).toString());
+//
+//        String date = model.getValueAt(row, 6).toString();
+//        String dayAndMonth = date.split(",")[0].strip();
+//        String month = dayAndMonth.split(" ")[0].strip();
+//        String day = dayAndMonth.split(" ")[1].strip();
+//        String year = date.split(",")[1].strip();
+//        boxYear.setSelectedItem(year);
+//        boxDay.setSelectedItem(day);
+//        boxMonth.setSelectedItem(month.substring(0, 3));
 
         row = tableAppointment.getSelectedRow();
 

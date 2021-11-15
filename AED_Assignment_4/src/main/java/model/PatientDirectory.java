@@ -46,11 +46,16 @@ public class PatientDirectory {
 
     public void removePatient(String patientId){
 
+        Patient temp = null;
         for (Patient patient : patientDirectory) {
 
                 if(patientId.equals(patient.getPatientId()))
-                                patientDirectory.remove(patient);
+                    temp = patient;
+                                
         }
+        
+        if(temp != null)
+        patientDirectory.remove(temp);
     }
 
 

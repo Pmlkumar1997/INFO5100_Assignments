@@ -423,7 +423,19 @@ public class PatientPanel extends javax.swing.JPanel {
         String strZipCode = txtZip.getText();
         String phoneNo = txtPhone.getText();
         String maritalStatus = getMartialStatus();
-        
+        if (patientId.equals("")||firstName.isEmpty()||lastName.isEmpty()||strAge.isEmpty()|| houseNumber.isEmpty()
+                || streetName.isEmpty() || strCommunity.isEmpty() || strCity.isEmpty()
+                || state.isEmpty() || strZipCode.isEmpty() || phoneNo.isEmpty() || sex.isEmpty() || maritalStatus.isEmpty())
+        {
+            JOptionPane.showMessageDialog(this, "One or More fields are empty..!", "Empty Fields", 2);
+            return;
+        }
+        if (! patientDirectory.isValidPatientId(patientId))
+        {
+            JOptionPane.showMessageDialog(this, "Patient with same ID already exists.!! please check", "ID error",2);
+            return;
+            
+        }
         if (!isNumber(strAge))
         {
             JOptionPane.showMessageDialog(null,"Invalid Age. Please insert a number");
@@ -442,20 +454,7 @@ public class PatientPanel extends javax.swing.JPanel {
             return;
         }
   
-        if (patientId.equals("")||firstName.isEmpty()||lastName.isEmpty()||strAge.isEmpty()|| houseNumber.isEmpty()
-                || streetName.isEmpty() || strCommunity.isEmpty() || strCity.isEmpty()
-                || state.isEmpty() || strZipCode.isEmpty() || phoneNo.isEmpty() || sex.isEmpty() || maritalStatus.isEmpty())
-        {
-            JOptionPane.showMessageDialog(this, "One or More fields are empty..!", "Empty Fields", 2);
-        }
         
-        else if (! patientDirectory.isValidPatientId(patientId))
-        {
-            JOptionPane.showMessageDialog(this, "Patient with same ID already exists.!! please check", "ID error",2);
-            
-        }
-        else
-        {
             int age = Integer.parseInt(strAge);
             int zipcode = Integer.parseInt(strZipCode);
            
@@ -469,7 +468,7 @@ public class PatientPanel extends javax.swing.JPanel {
 
             JOptionPane.showMessageDialog(this, "Patient information added successfully.!!", "Added patient",1);
             clearField();
-        }
+        
     }//GEN-LAST:event_btnAddPatientActionPerformed
 
     private void btnViewPatientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewPatientsActionPerformed
@@ -489,13 +488,13 @@ public class PatientPanel extends javax.swing.JPanel {
         if (dialogResult == 0)
         {
             row = patientTable.getSelectedRow();
-            model.removeRow(row);
             String patinetId = model.getValueAt(row, 0).toString();
+            model.removeRow(row);
             patientDirectory.removePatient(patinetId);
             displayPatients(patientDirectory.getPatientDirectory());       
-            
+            clearField();
         }
-        clearField();
+        
     }//GEN-LAST:event_btnDeletePatientActionPerformed
 
     private void btnUpdatePatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdatePatientActionPerformed
