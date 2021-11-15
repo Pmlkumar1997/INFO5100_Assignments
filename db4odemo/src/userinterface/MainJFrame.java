@@ -127,13 +127,32 @@ public class MainJFrame extends javax.swing.JFrame {
         String userName = userNameJTextField.getText();
         char[] pwd = passwordField.getPassword();
         String password = String.valueOf(pwd);
+        
+        if(userName.matches("[a-zA-Z]+") && password!="")
+        {
+
         UserAccount userAccount = system.getUserAccountDirectory().authenticateUser(userName, password);
-        Organization organization = null;
-        if (userAccount == null)
-            for (Employee employee : organization.getEmployeeDirectory().getEmployeeList()) {
-                userAccount = organization.getUserAccountDirectory().authenticateUser(userName, password);
-            }
-         
+     
+        if (userAccount == null) {
+            JOptionPane.showMessageDialog(null, "Invalid Credentails!");
+            return;
+        } else {
+            CardLayout layout = (CardLayout) container.getLayout();
+            container.add("workArea", userAccount.getRole().createWorkArea(container, userAccount, system ));
+            layout.next(container);
+        }
+        loginJButton.setEnabled(false);
+        logoutJButton.setEnabled(true);
+        userNameJTextField.setEnabled(false);
+        passwordField.setEnabled(false);
+        }
+        else 
+        {
+            JOptionPane.showMessageDialog(null, "Please enter valid credentials", "Information", JOptionPane.INFORMATION_MESSAGE);
+
+        }
+    
+        
     }//GEN-LAST:event_loginJButtonActionPerformed
 
     private void logoutJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutJButtonActionPerformed

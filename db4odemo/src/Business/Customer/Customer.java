@@ -16,13 +16,18 @@ public class Customer {
     private String gender;
     private String email;
     private String contact;
+    private String userName;
+    private String password;
 
-    public Customer(String name, int age, String gender, String email, String contact) {
+    public Customer(String name, int age, String gender, String email, String contact, String userName,String password) {
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.email = email;
         this.contact = contact;
+        this.userName = userName;
+        this.password = password;
+                
     }
 
     public String getName() {
@@ -63,6 +68,22 @@ public class Customer {
 
     public void setContact(String contact) {
         this.contact = contact;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
     
     

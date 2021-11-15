@@ -9,6 +9,7 @@ import Business.EcoSystem;
 
 import Business.Organization;
 import java.awt.CardLayout;
+import static java.time.Clock.system;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -25,6 +26,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
      */
     JPanel userProcessContainer;
     EcoSystem ecosystem;
+    
     public SystemAdminWorkAreaJPanel(JPanel userProcessContainer,EcoSystem ecosystem) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
@@ -122,11 +124,10 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                         .addComponent(lblSelectedNode))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(91, 91, 91)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnManageAdmin)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnManageEnterprise, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnManageNetwork, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnManageEnterprise, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnManageNetwork, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnManageAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(240, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -137,7 +138,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(lblSelectedNode))
                 .addGap(54, 54, 54)
-                .addComponent(btnManageNetwork)
+                .addComponent(btnManageNetwork, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnManageEnterprise)
                 .addGap(18, 18, 18)
@@ -151,15 +152,28 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnManageNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageNetworkActionPerformed
-       
+        
+        ManageCustomersJPanel manageCustomersJPanel = new ManageCustomersJPanel(userProcessContainer, ecosystem);
+        userProcessContainer.add("manageCustomers", manageCustomersJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);       
     }//GEN-LAST:event_btnManageNetworkActionPerformed
 
     private void btnManageEnterpriseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageEnterpriseActionPerformed
+        
+        ManageRestaurantJPanel manageRestaurantJPanel = new ManageRestaurantJPanel(userProcessContainer, ecosystem);
+        userProcessContainer.add("manageRestaurant", manageRestaurantJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
         
     }//GEN-LAST:event_btnManageEnterpriseActionPerformed
 
     private void btnManageAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageAdminActionPerformed
        
+        ManageDeliveryManJPanel manageDeliveryMan = new ManageDeliveryManJPanel(userProcessContainer, ecosystem);
+        userProcessContainer.add("manageDeliveryMan", manageDeliveryMan);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnManageAdminActionPerformed
 
     private void jTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_jTreeValueChanged

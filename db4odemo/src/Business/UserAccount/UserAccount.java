@@ -4,6 +4,7 @@
  */
 package Business.UserAccount;
 
+import Business.Customer.Customer;
 import Business.Employee.Employee;
 import Business.Role.Role;
 import Business.WorkQueue.WorkQueue;
@@ -17,6 +18,7 @@ public class UserAccount {
     private String username;
     private String password;
     private Employee employee;
+    private Customer customer;
     private Role role;
     private WorkQueue workQueue;
 

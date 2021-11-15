@@ -20,11 +20,11 @@ public class DeliveryManDirectory {
         deliveryManList = new ArrayList();
     }
 
-    public ArrayList<DeliveryMan> getEmployeeList() {
+    public ArrayList<DeliveryMan> getDeliveryManList() {
         return deliveryManList;
     }
     
-    public DeliveryMan createEmployee(String name){
+    public DeliveryMan addDeliveryMan(String name){
         DeliveryMan deliveryMan = new DeliveryMan();
         deliveryMan.setName(name);
         deliveryManList.add(deliveryMan);

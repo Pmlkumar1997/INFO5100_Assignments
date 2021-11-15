@@ -29,4 +29,14 @@ public class CustomerDirectory {
         return customer;
     }
     
+    public boolean checkIfcustomerisUnique(String userName){
+        
+        for(Customer customer : customerList){
+            
+            if(customer.getUserName().equals(userName)) return false;
+        }
+        
+        return true;
+    }
+    
 }
