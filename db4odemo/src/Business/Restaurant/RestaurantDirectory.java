@@ -23,11 +23,20 @@ public class RestaurantDirectory {
         return restaurantList;
     }
     
-    public Restaurant addRestaurant(String name){
-        Restaurant restaurant = new Restaurant();
-        restaurant.setRestaurantName(name);
+    public Restaurant addRestaurant(Restaurant restaurant){
+        
         restaurantList.add(restaurant);
         return restaurant;
+    }
+    
+     public boolean checkIfmanagerisUnique(String userName){
+        
+        for(Restaurant restaurant : restaurantList){
+            
+            if(restaurant.getUserName().equals(userName)) return false;
+        }
+        
+        return true;
     }
     
 }

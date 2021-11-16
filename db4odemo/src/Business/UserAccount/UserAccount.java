@@ -5,6 +5,7 @@
 package Business.UserAccount;
 
 import Business.Customer.Customer;
+import Business.DeliveryMan.DeliveryMan;
 import Business.Employee.Employee;
 import Business.Role.Role;
 import Business.WorkQueue.WorkQueue;
@@ -19,6 +20,7 @@ public class UserAccount {
     private String password;
     private Employee employee;
     private Customer customer;
+    private DeliveryMan deliveryMan;
     private Role role;
     private WorkQueue workQueue;
 
@@ -50,6 +52,14 @@ public class UserAccount {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+    
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+    
+    public void setDeliveryMan(DeliveryMan deliveryMan) {
+        this.deliveryMan = deliveryMan;
     }
 
     public void setRole(Role role) {

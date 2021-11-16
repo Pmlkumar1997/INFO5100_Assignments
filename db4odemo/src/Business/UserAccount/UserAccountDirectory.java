@@ -4,6 +4,8 @@
  */
 package Business.UserAccount;
 
+import Business.Customer.Customer;
+import Business.DeliveryMan.DeliveryMan;
 import Business.Employee.Employee;
 import Business.Role.Role;
 import java.util.ArrayList;
@@ -40,6 +42,28 @@ public class UserAccountDirectory {
         userAccount.setRole(role);
         userAccountList.add(userAccount);
         return userAccount;
+    }
+    
+    public UserAccount createCustomerAccount(String username, String password, Customer customer, Role role)
+    {
+      UserAccount userAccount = new UserAccount();
+        userAccount.setUsername(username);
+        userAccount.setPassword(password);
+        userAccount.setCustomer(customer);
+        userAccount.setRole(role);
+        userAccountList.add(userAccount);
+        return userAccount;  
+    }
+    
+    public UserAccount createDeliverymanAccount(String username, String password, DeliveryMan deliveryMan, Role role)
+    {
+      UserAccount userAccount = new UserAccount();
+        userAccount.setUsername(username);
+        userAccount.setPassword(password);
+        userAccount.setDeliveryMan(deliveryMan);
+        userAccount.setRole(role);
+        userAccountList.add(userAccount);
+        return userAccount;  
     }
     
     public boolean checkIfUsernameIsUnique(String username){

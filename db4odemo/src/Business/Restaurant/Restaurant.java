@@ -13,16 +13,34 @@ package Business.Restaurant;
 public class Restaurant {
     
     private String restaurantName;
-    private int restaurantID;
-    private static int count = 1;
+    private String Location;
+    private String managerName;
+    private String userName;
+    private String password;
 
-    public Restaurant() {
-        restaurantID = count;
-        count++;
+    public Restaurant(String restaurantName, String Location, String managerName, String userName, String password) {
         this.restaurantName = restaurantName;
+        this.Location = Location;
+        this.managerName = managerName;
+        this.userName = userName;
+        this.password = password;
     }
 
-   
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getRestaurantName() {
         return restaurantName;
@@ -32,19 +50,22 @@ public class Restaurant {
         this.restaurantName = restaurantName;
     }
 
-    public int getRestaurantID() {
-        return restaurantID;
+    public String getLocation() {
+        return Location;
+    }
+
+    public void setLocation(String Location) {
+        this.Location = Location;
+    }
+
+    public String getManagerName() {
+        return managerName;
+    }
+
+    public void setManagerName(String managerName) {
+        this.managerName = managerName;
     }
     
-
-    public static int getCount() {
-        return count;
-    }
-
-    public static void setCount(int count) {
-        Restaurant.count = count;
-    }
-
     
      @Override
     public String toString() {

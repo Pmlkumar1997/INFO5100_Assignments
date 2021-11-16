@@ -24,11 +24,19 @@ public class DeliveryManDirectory {
         return deliveryManList;
     }
     
-    public DeliveryMan addDeliveryMan(String name){
-        DeliveryMan deliveryMan = new DeliveryMan();
-        deliveryMan.setName(name);
+    public DeliveryMan addDeliveryMan(DeliveryMan deliveryMan){
+        
         deliveryManList.add(deliveryMan);
         return deliveryMan;
     }
     
+     public boolean checkIfdeliveryManisUnique(String userName){
+        
+        for(DeliveryMan deliveryMan : deliveryManList){
+            
+            if(deliveryMan.getUserName().equals(userName)) return false;
+        }
+        
+        return true;
+    }
 }

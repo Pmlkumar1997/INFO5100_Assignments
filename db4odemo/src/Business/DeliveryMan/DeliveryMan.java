@@ -14,20 +14,25 @@ import java.util.ArrayList;
 public class DeliveryMan  {
     
    
-    private int id;
     private String name;
-    private static int count = 1;
+    private int age;
+    private String gender;
+    private String email;
+    private String contact;
+    private String userName;
+    private String password;
 
-    public DeliveryMan() {
-        id = count;
-        count++;
+    public DeliveryMan(String name, int age, String gender, String email, String contact, String userName, String password) {
+        
         this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.email = email;
+        this.contact = contact;
+        this.userName = userName;
+        this.password = password;
+                
     }
-    
-    public int getId() {
-        return id;
-    }
-   
 
     public String getName() {
         return name;
@@ -37,11 +42,57 @@ public class DeliveryMan  {
         this.name = name;
     }
 
-    @Override
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    
     public String toString() {
         return name;
     }
-    
-
     
 }
