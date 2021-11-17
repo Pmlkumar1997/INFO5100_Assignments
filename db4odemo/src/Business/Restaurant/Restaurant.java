@@ -5,6 +5,11 @@
  */
 package Business.Restaurant;
 
+import Business.Employee.Employee;
+import Business.FoodItem.Menu;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.WorkQueue;
+
 
 /**
  *
@@ -14,33 +19,42 @@ public class Restaurant {
     
     private String restaurantName;
     private String Location;
-    private String managerName;
-    private String userName;
-    private String password;
+    private UserAccount userAccount;
+    private Menu menu;
+    private WorkQueue workQueue;
 
-    public Restaurant(String restaurantName, String Location, String managerName, String userName, String password) {
+    public UserAccount getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
+    }
+
+    public Restaurant(String restaurantName, String Location, UserAccount userAccount) {
         this.restaurantName = restaurantName;
         this.Location = Location;
-        this.managerName = managerName;
-        this.userName = userName;
-        this.password = password;
+        this.userAccount = userAccount;
+        this.menu = new Menu();
+        this.workQueue = new WorkQueue();
     }
 
-    public String getUserName() {
-        return userName;
+    public Menu getMenu() {
+        return menu;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public WorkQueue getWorkQueue() {
+        return workQueue;
     }
 
-    public String getPassword() {
-        return password;
+    public void setWorkQueue(WorkQueue workQueue) {
+        this.workQueue = workQueue;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setMenu(Menu menu) {
+        this.menu = menu;
     }
+
 
     public String getRestaurantName() {
         return restaurantName;
@@ -58,15 +72,7 @@ public class Restaurant {
         this.Location = Location;
     }
 
-    public String getManagerName() {
-        return managerName;
-    }
-
-    public void setManagerName(String managerName) {
-        this.managerName = managerName;
-    }
-    
-    
+   
      @Override
     public String toString() {
         return restaurantName;

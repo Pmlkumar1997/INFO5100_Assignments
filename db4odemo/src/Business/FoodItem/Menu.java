@@ -29,4 +29,15 @@ public class Menu {
         itemsList.add(item);
         return item;
     }
+    
+    public boolean checkIfItemExist(String itemName)
+            
+    {
+        for (Item item : itemsList)
+        {
+            if (item.getItemName().equalsIgnoreCase(itemName))
+                return false;
+        }
+        return true;
+    }
 }

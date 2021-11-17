@@ -28,7 +28,7 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
     private EcoSystem system;
     DefaultTableModel model;
     int row,col;
-    public ManageDeliveryManJPanel(JPanel userProcessContaine, EcoSystem system) {
+    public ManageDeliveryManJPanel(JPanel userProcessContainer, EcoSystem system) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.system = system;
@@ -66,6 +66,9 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
         txtUser = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtpwd = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         tableCustomer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -109,6 +112,12 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
 
         jLabel7.setText("Password");
 
+        jButton1.setText("Update");
+
+        jButton2.setText("Delete");
+
+        jButton3.setText("View");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,18 +144,25 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
                             .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtMail, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtpwd, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtUser, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtpwd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(240, 240, 240)
+                        .addComponent(btnSave)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton3))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(93, 93, 93)
                         .addComponent(btnBack))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(137, 137, 137)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(343, 343, 343)
-                        .addComponent(btnSave)))
-                .addContainerGap(83, Short.MAX_VALUE))
+                        .addGap(65, 65, 65)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,17 +192,23 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
                     .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(txtUser))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtpwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addComponent(btnSave)
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtpwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSave)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2)
+                            .addComponent(jButton3)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6)))
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -225,17 +247,24 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
             return;
         }
 
-        if (!system.getDeliveryManDirectory().checkIfdeliveryManisUnique(user))
+//        if (!system.getDeliveryManDirectory().checkIfdeliveryManisUnique(user))
+//        {
+//            JOptionPane.showMessageDialog(null,"User ID exits...please select a different username");
+//            return;
+//        }
+
+        if (!system.getUserAccountDirectory().checkIfUsernameIsUnique(user))
         {
             JOptionPane.showMessageDialog(null,"User ID exits...please select a different username");
             return;
         }
+        
 
         int age = Integer.parseInt(strAge);
 
         DeliveryMan deliveryMan = new DeliveryMan(name, age, sex, mail, contact, user, pwd);
         system.getDeliveryManDirectory().addDeliveryMan(deliveryMan);
-
+        system.getUserAccountDirectory().createDeliverymanAccount(user, pwd, deliveryMan);
         displayDeliveryMen();
 
         JOptionPane.showMessageDialog(this, "DeliveryMan information added successfully.!!", "Added DeliveryMan",1);
@@ -274,6 +303,9 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
     private javax.swing.ButtonGroup btnGroupSex;
     private javax.swing.JRadioButton btnMale;
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

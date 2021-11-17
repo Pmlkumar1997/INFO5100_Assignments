@@ -6,6 +6,8 @@
 package userinterface.RestaurantAdminRole;
 
 import Business.EcoSystem;
+import Business.Employee.Employee;
+import Business.Role.Role;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,6 +22,8 @@ public class ManageRestaurantInfoJPanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private EcoSystem system;
+    private Role role;
+    private Employee employee;
     DefaultTableModel model;
     int row,col;
     public ManageRestaurantInfoJPanel(JPanel userProcessContainer, EcoSystem system) {

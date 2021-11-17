@@ -5,6 +5,7 @@
  */
 package Business.Restaurant;
 
+import Business.Employee.Employee;
 import java.util.ArrayList;
 
 /**
@@ -29,11 +30,19 @@ public class RestaurantDirectory {
         return restaurant;
     }
     
-     public boolean checkIfmanagerisUnique(String userName){
+    public Restaurant getRestaurant(String restaurantName){
+        
+        for(Restaurant restaurant :restaurantList){
+            if(restaurant.getRestaurantName().equals(restaurantName)) return restaurant;
+        }
+        return null;
+    }
+    
+     public boolean checkIfRestaurantisUnique(String restaurantName){
         
         for(Restaurant restaurant : restaurantList){
             
-            if(restaurant.getUserName().equals(userName)) return false;
+            if(restaurant.getRestaurantName().equals(restaurantName)) return false;
         }
         
         return true;

@@ -26,13 +26,14 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
     private EcoSystem system;
     DefaultTableModel model;
     int row,col;
-    public ManageCustomersJPanel(JPanel userProcessContaine, EcoSystem system ) {
+    public ManageCustomersJPanel(JPanel userProcessContainer, EcoSystem system ) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.system = system;
         buttonGroupSex.add(btnMale);
         buttonGroupSex.add(btnFemale);
         model = (DefaultTableModel) tableCustomer.getModel();
+        displayCustomers();
     }
 
     /**
@@ -66,6 +67,9 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
         txtUser = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtpwd = new javax.swing.JTextField();
+        btnUpdate = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnView = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -109,6 +113,11 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
                 "Name", "Age", "Sex", "Mail ID", "Contact"
             }
         ));
+        tableCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableCustomerMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tableCustomer);
 
         btnBack.setText("<<Back");
@@ -121,6 +130,27 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
         jLabel6.setText("Username");
 
         jLabel7.setText("Password");
+
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnView.setText("View");
+        btnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -155,12 +185,18 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
                         .addGap(93, 93, 93)
                         .addComponent(btnBack))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(137, 137, 137)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(241, 241, 241)
+                        .addComponent(btnSave)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnUpdate)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDelete)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnView))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(343, 343, 343)
-                        .addComponent(btnSave)))
-                .addContainerGap(167, Short.MAX_VALUE))
+                        .addGap(139, 139, 139)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,40 +204,44 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
                 .addGap(42, 42, 42)
                 .addComponent(btnBack)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(btnMale)
-                    .addComponent(btnFemale))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtMail, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(btnMale)
+                            .addComponent(btnFemale))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtMail, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5))
                     .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(txtpwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addComponent(btnSave)
-                        .addGap(28, 28, 28)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtpwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSave)
+                    .addComponent(btnUpdate)
+                    .addComponent(btnDelete)
+                    .addComponent(btnView))
+                .addGap(35, 35, 35)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(91, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -240,7 +280,8 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
             return;
         }
         
-        if (!system.getCustomerDirectory().checkIfcustomerisUnique(user))
+        
+        if (!system.getUserAccountDirectory().checkIfUsernameIsUnique(user))
         {
             JOptionPane.showMessageDialog(null,"User ID exits...please select a different username");
             return;
@@ -250,12 +291,120 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
         
         Customer customer = new Customer(name, age, sex, mail, contact, user, pwd);
         system.getCustomerDirectory().addCustomer(customer);
+        system.getUserAccountDirectory().createCustomerAccount(user, pwd, customer);
         
         displayCustomers();
 
-        JOptionPane.showMessageDialog(this, "Customer information added successfully.!!", "Added patient",1);
+        JOptionPane.showMessageDialog(this, "Customer information added successfully.!!", "Added customer",1);
+        clearField();
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        String updatename = txtName.getText();
+        String updatestrAge = txtAge.getText();
+        String updatesex = getSex();
+        String updatemail = txtMail.getText();
+        String updatecontact = txtContact.getText();
+        String updateuser = txtUser.getText();
+        String updatepwd = txtpwd.getText();
+        
+        if (updatename.isEmpty()||updatestrAge.isEmpty() || updatesex.isEmpty() || updatemail.isEmpty() || updatecontact.isEmpty() || updateuser.isEmpty() || updatepwd.isEmpty())
+        {
+            JOptionPane.showMessageDialog(this, "One or More fields are empty..!", "Empty Fields", 2);
+            return;
+        }
+        
+        if (!isNumber(updatestrAge))
+        {
+            JOptionPane.showMessageDialog(this,"Invalid Age. Please insert a number");
+            return;
+        }
+        
+        if (!updatecontact.matches("^\\d{10}$"))
+        {
+            JOptionPane.showMessageDialog(this,"Enter a valid phone number");
+            return;
+        }
+        
+//        if (!system.getUserAccountDirectory().checkIfUsernameIsUnique(updateuser))
+//        {
+//            JOptionPane.showMessageDialog(null,"User ID exits...please select a different username");
+//            return;
+//        }
+        
+        int updateage = Integer.parseInt(updatestrAge);
+        
+        Customer customer = new Customer(updatename, updateage, updatesex, updatemail, updatecontact, updateuser, updatepwd);
+        
+        system.getCustomerDirectory().getcustomerList().get(row).setName(updatename);
+        system.getCustomerDirectory().getcustomerList().get(row).setAge(updateage);
+        system.getCustomerDirectory().getcustomerList().get(row).setGender(updatesex);
+        system.getCustomerDirectory().getcustomerList().get(row).setEmail(updatemail);
+        system.getCustomerDirectory().getcustomerList().get(row).setContact(updatecontact);
+        
+        
+        system.getUserAccountDirectory().createCustomerAccount(updateuser, updatepwd, customer);
+        
+        
+        displayCustomers();
+
+        JOptionPane.showMessageDialog(this, "Customer information updated successfully.!!", "updated customer",1);
+        clearField();
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void tableCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCustomerMouseClicked
+        
+        row = tableCustomer.getSelectedRow();
+        col = tableCustomer.getColumnCount();
+        
+        txtName.setText(model.getValueAt(row, 0).toString());
+        txtAge.setText(model.getValueAt(row, 1).toString());
+        if (model.getValueAt(row, 2).toString().equals("Male"))
+        {
+            btnMale.doClick();
+        }
+        if (model.getValueAt(row, 2).toString().equals("Female"))
+        {
+            btnFemale.doClick();
+        }
+        txtMail.setText(model.getValueAt(row, 3).toString());
+        txtContact.setText(model.getValueAt(row, 4).toString());
+        //txtUser.setText(model.getValueAt(row, 5).toString());
+        //txtpwd.setText(model.getValueAt(row, 6).toString());
+        
+    }//GEN-LAST:event_tableCustomerMouseClicked
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Delete this data", "Delete", dialogButton);
+        if (dialogResult == 0)
+        {
+            row = tableCustomer.getSelectedRow();
+            model.removeRow(row);
+            system.getCustomerDirectory().getcustomerList().remove(row);
+            model.setRowCount(0);
+            displayCustomers();
+            clearField();
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        
+        displayCustomers();
+    }//GEN-LAST:event_btnViewActionPerformed
+    
+    public void clearField(){
+        
+        txtName.setText("");
+        txtAge.setText("");
+        txtMail.setText("");
+        txtContact.setText("");
+        txtUser.setText("");
+        txtpwd.setText("");
+        buttonGroupSex.clearSelection();
+    }
+    
     public String getSex(){
         
         if(btnMale.isSelected()) return "Male";
@@ -272,11 +421,11 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
 		}
     }
     
-    public  void displayCustomers(){
+    public void displayCustomers(){
         
         model.setRowCount(0);
         
-        for(Customer customer :system.getCustomerDirectory().getcustomerList()){            
+        for(Customer customer : system.getCustomerDirectory().getcustomerList()){            
             Object[] objs = {customer.getName(),customer.getAge(),customer.getGender(),customer.getEmail(),customer.getContact()};
             model.addRow(objs);
         }
@@ -285,9 +434,12 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JRadioButton btnFemale;
     private javax.swing.JRadioButton btnMale;
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnUpdate;
+    private javax.swing.JButton btnView;
     private javax.swing.ButtonGroup buttonGroupSex;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

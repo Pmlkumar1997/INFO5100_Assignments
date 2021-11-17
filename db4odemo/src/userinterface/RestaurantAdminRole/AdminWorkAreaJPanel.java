@@ -6,6 +6,8 @@ package userinterface.RestaurantAdminRole;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import Business.EcoSystem;
+import Business.Restaurant.Restaurant;
+import Business.UserAccount.UserAccount;
 /**
  *
  * @author  raunak
@@ -14,12 +16,14 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     
     JPanel userProcessContainer;
     EcoSystem ecosystem;
+    private UserAccount userAccount;
     
     /** Creates new form AdminWorkAreaJPanel */
-    public AdminWorkAreaJPanel(JPanel userProcessContainer) {
+    public AdminWorkAreaJPanel(JPanel userProcessContainer, EcoSystem business, UserAccount userAccount) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-      
+        this.ecosystem = business;
+        this.userAccount = userAccount;
         //valueLabel.setText();
     }
     
@@ -78,7 +82,8 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void userJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userJButtonActionPerformed
          
-        ManageOrdersJPanel manageOrdersJPanel = new ManageOrdersJPanel(userProcessContainer, ecosystem);
+        Restaurant restaurant = getRestaurant();
+        ManageOrdersJPanel manageOrdersJPanel = new ManageOrdersJPanel(userProcessContainer, ecosystem, restaurant);
         userProcessContainer.add("manageOrdersJPanel", manageOrdersJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer); 
@@ -87,7 +92,8 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void manageEmployeeJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEmployeeJButtonActionPerformed
         
-        ManageMenuJPanel manageMenuJPanel = new ManageMenuJPanel(userProcessContainer, ecosystem);
+        Restaurant restaurant = getRestaurant();
+        ManageMenuJPanel manageMenuJPanel = new ManageMenuJPanel(userProcessContainer, restaurant);
         userProcessContainer.add("manageMenuJPanel", manageMenuJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer); 
@@ -95,12 +101,23 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void manageOrganizationJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrganizationJButtonActionPerformed
         
-        ManageRestaurantInfoJPanel manageRestaurantInfoJPanel = new ManageRestaurantInfoJPanel(userProcessContainer, ecosystem);
-        userProcessContainer.add("manageRestaurantInfoJPanel", manageRestaurantInfoJPanel);
+        Restaurant restaurant = getRestaurant();
+        ManageOrdersJPanel manageOrdersJPanel = new ManageOrdersJPanel(userProcessContainer, ecosystem, restaurant);
+        userProcessContainer.add("manageRestaurantInfoJPanel", manageOrdersJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer); 
     }//GEN-LAST:event_manageOrganizationJButtonActionPerformed
     
+    public Restaurant getRestaurant(){
+        
+        for( Restaurant restaurant : ecosystem.getRestaurantDirectory().getRestaurantList()){
+            
+            if(restaurant.getUserAccount() == userAccount){
+                return restaurant;
+            }
+        }
+        return null;
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel enterpriseLabel;

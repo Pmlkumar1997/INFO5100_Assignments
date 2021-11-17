@@ -29,7 +29,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     
     public SystemAdminWorkAreaJPanel(JPanel userProcessContainer,EcoSystem ecosystem) {
         initComponents();
-        this.userProcessContainer=userProcessContainer;
+        this.userProcessContainer = userProcessContainer;
         this.ecosystem = ecosystem;
         populateTree();
     }
@@ -153,7 +153,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnManageNetworkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageNetworkActionPerformed
         
-        ManageCustomersJPanel manageCustomersJPanel = new ManageCustomersJPanel(userProcessContainer, ecosystem);
+        ManageCustomersJPanel manageCustomersJPanel = new ManageCustomersJPanel(this.userProcessContainer, this.ecosystem);
         userProcessContainer.add("manageCustomers", manageCustomersJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);       

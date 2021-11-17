@@ -5,6 +5,8 @@
  */
 package Business.Customer;
 
+import Business.WorkQueue.WorkQueue;
+
 /**
  *
  * @author harold
@@ -18,6 +20,7 @@ public class Customer {
     private String contact;
     private String userName;
     private String password;
+    private WorkQueue workQueue;
 
     public Customer(String name, int age, String gender, String email, String contact, String userName,String password) {
         this.name = name;
@@ -27,7 +30,11 @@ public class Customer {
         this.contact = contact;
         this.userName = userName;
         this.password = password;
-                
+        this.workQueue = new WorkQueue();        
+    }
+
+    public WorkQueue getWorkQueue() {
+        return workQueue;
     }
 
     public String getName() {
