@@ -110,7 +110,7 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Name", "Age", "Sex", "Mail ID", "Contact"
+                "Name", "Age", "Sex", "Mail ID", "Contact", "Username", "Password"
             }
         ));
         tableCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -194,9 +194,9 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(btnView))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(139, 139, 139)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(90, Short.MAX_VALUE))
+                        .addGap(61, 61, 61)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,9 +239,9 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
                     .addComponent(btnUpdate)
                     .addComponent(btnDelete)
                     .addComponent(btnView))
-                .addGap(35, 35, 35)
+                .addGap(33, 33, 33)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -341,7 +341,9 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
         system.getCustomerDirectory().getcustomerList().get(row).setGender(updatesex);
         system.getCustomerDirectory().getcustomerList().get(row).setEmail(updatemail);
         system.getCustomerDirectory().getcustomerList().get(row).setContact(updatecontact);
-        
+        //system.getCustomerDirectory().getcustomerList().get(row).setUserName(updateuser);
+        txtUser.setEditable(false);
+        system.getCustomerDirectory().getcustomerList().get(row).setPassword(updatepwd);
         
         system.getUserAccountDirectory().createCustomerAccount(updateuser, updatepwd, customer);
         
@@ -369,8 +371,8 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
         }
         txtMail.setText(model.getValueAt(row, 3).toString());
         txtContact.setText(model.getValueAt(row, 4).toString());
-        //txtUser.setText(model.getValueAt(row, 5).toString());
-        //txtpwd.setText(model.getValueAt(row, 6).toString());
+        txtUser.setText(model.getValueAt(row, 5).toString());
+        txtpwd.setText(model.getValueAt(row, 6).toString());
         
     }//GEN-LAST:event_tableCustomerMouseClicked
 
@@ -391,6 +393,7 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         
+        model.setRowCount(0);
         displayCustomers();
     }//GEN-LAST:event_btnViewActionPerformed
     
@@ -426,7 +429,7 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
         
         for(Customer customer : system.getCustomerDirectory().getcustomerList()){            
-            Object[] objs = {customer.getName(),customer.getAge(),customer.getGender(),customer.getEmail(),customer.getContact()};
+            Object[] objs = {customer.getName(),customer.getAge(),customer.getGender(),customer.getEmail(),customer.getContact(),customer.getUserName(),customer.getPassword()};
             model.addRow(objs);
         }
         

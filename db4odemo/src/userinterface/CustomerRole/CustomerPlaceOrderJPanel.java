@@ -102,7 +102,7 @@ public class CustomerPlaceOrderJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnBack.setText("Back");
+        btnBack.setText("<< Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
@@ -219,7 +219,7 @@ public class CustomerPlaceOrderJPanel extends javax.swing.JPanel {
             return;
         }
         
-        double price = Double.parseDouble(strPrice);
+        double price = Double.parseDouble(strPrice) * quantity;
         String RestaurantName = restaurantComboBox.getSelectedItem().toString();
         Order order = new Order(itemName, price, quantity, RestaurantName);
         order.setStatus("Ordered");
@@ -229,6 +229,8 @@ public class CustomerPlaceOrderJPanel extends javax.swing.JPanel {
         
         Restaurant restaurant = ecosystem.getRestaurantDirectory().getRestaurant(RestaurantName);
         restaurant.getWorkQueue().addWorkRequest(order);
+        
+         JOptionPane.showMessageDialog(this, "Order placed successfully!!", "Order", 1);
         
     }//GEN-LAST:event_btnOrderActionPerformed
 

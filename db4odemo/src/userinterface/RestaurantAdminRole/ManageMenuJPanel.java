@@ -9,6 +9,7 @@ import Business.EcoSystem;
 import Business.FoodItem.Item;
 import Business.FoodItem.Menu;
 import Business.Restaurant.Restaurant;
+import java.awt.CardLayout;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -28,7 +29,7 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
     DefaultTableModel model;
     int row,col;
     
-    public ManageMenuJPanel(JPanel userProcessContaine, Restaurant restaurant) {
+    public ManageMenuJPanel(JPanel userProcessContainer, Restaurant restaurant) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
         this.restaurant = restaurant;
@@ -299,6 +300,9 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
     
      public String getAvailability(){

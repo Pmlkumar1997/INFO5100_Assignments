@@ -5,11 +5,15 @@
  */
 package userinterface.RestaurantAdminRole;
 
+import Business.DeliveryMan.DeliveryMan;
 import Business.EcoSystem;
 import Business.Restaurant.Restaurant;
+import Business.UserAccount.UserAccount;
 import Business.WorkQueue.Order;
 import Business.WorkQueue.WorkQueue;
 import Business.WorkQueue.WorkRequest;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,6 +37,7 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         this.system = system;
         this.restaurant = restaurant;
         model = (DefaultTableModel) tableOrder.getModel();
+        populateDeliveryManBox(); 
         populateTableOrder();
     }
 
@@ -50,54 +55,165 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         btnAccept = new javax.swing.JButton();
         btnReject = new javax.swing.JButton();
         btnAssign = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
+        boxDeliveryMan = new javax.swing.JComboBox<>();
 
         tableOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Customer Name", "Item", "Availability", "Order Status"
+                "Customer Name", "Item", "Quantity", "Order Value", "Order status", "Comment"
             }
         ));
         jScrollPane1.setViewportView(tableOrder);
 
         btnAccept.setText("Accept");
+        btnAccept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcceptActionPerformed(evt);
+            }
+        });
 
         btnReject.setText("Reject");
+        btnReject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRejectActionPerformed(evt);
+            }
+        });
 
         btnAssign.setText("Assign");
+        btnAssign.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignActionPerformed(evt);
+            }
+        });
+
+        btnBack.setText("<< Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
+        boxDeliveryMan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Delivery Man" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBack)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(101, 101, 101)
                         .addComponent(btnAccept)
-                        .addGap(45, 45, 45)
+                        .addGap(18, 18, 18)
                         .addComponent(btnReject)
-                        .addGap(31, 31, 31)
-                        .addComponent(btnAssign)))
-                .addContainerGap(85, Short.MAX_VALUE))
+                        .addGap(26, 26, 26)
+                        .addComponent(boxDeliveryMan, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAssign))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(63, 63, 63)
+                .addGap(32, 32, 32)
+                .addComponent(btnBack)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAccept)
                     .addComponent(btnReject)
-                    .addComponent(btnAssign))
+                    .addComponent(btnAssign)
+                    .addComponent(boxDeliveryMan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(159, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
+        
+        
+        
+        String currentStatus = model.getValueAt(row, 3).toString();
+        
+        if(currentStatus.equalsIgnoreCase("Ordered"))
+        {
+            restaurant.getWorkQueue().getWorkRequestList().get(row).setStatus("Accepted");
+            populateTableOrder();
+        }
+        
+        else if(currentStatus.equalsIgnoreCase("rejected")){
+            
+            JOptionPane.showMessageDialog(this, "Rejected Order cannot be accepted", " Order Rejected", 1);
+            
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "This order is already accepted", " Order Accepted", 1);
+            
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_btnAcceptActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnRejectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRejectActionPerformed
+        String currentStatus = model.getValueAt(row, 3).toString();
+        
+        if(currentStatus.equalsIgnoreCase("Ordered"))
+        {
+            restaurant.getWorkQueue().getWorkRequestList().get(row).setStatus("Rejected");
+            populateTableOrder();
+        }
+        
+        else if(currentStatus.equalsIgnoreCase("rejected")){
+            
+            JOptionPane.showMessageDialog(this, "This order is already Rejected", " Order Rejected", 1);
+            
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Accepted orders cannot be rejected", " Order Accepted", 1);
+            
+        }
+    }//GEN-LAST:event_btnRejectActionPerformed
+
+    private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
+        
+        
+        String deliveryManUserName = boxDeliveryMan.getSelectedItem().toString();
+        
+        if(deliveryManUserName.equalsIgnoreCase("Select Delivery Man")){
+            JOptionPane.showMessageDialog(this, "Please select Deliver Man", "Delivery Man Missin", 1);
+            return;
+            
+        }
+        
+        UserAccount deliveryManAccount = null;
+        for ( UserAccount userAccount : system.getUserAccountDirectory().getUserAccountList())
+        {
+            if(userAccount.getUsername().equalsIgnoreCase(deliveryManUserName))
+           deliveryManAccount =  userAccount;
+        }
+        Order order = (Order) restaurant.getWorkQueue().getWorkRequestList().get(row);
+        order.setSender(deliveryManAccount);
+        
+        deliveryManAccount.getWorkQueue().addWorkRequest(order);
+        
+        
+        
+    }//GEN-LAST:event_btnAssignActionPerformed
 
 
     public void populateTableOrder()
@@ -107,16 +223,27 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         
         for(WorkRequest workRequest : workQueue.getWorkRequestList() ){
             Order order = (Order) workRequest;
-            Object[] objs = {workRequest.getReceiver().getUsername(),order.getFoodItemName(),order.getPrice(),workRequest.getStatus()};
+            Object[] objs = {workRequest.getReceiver().getUsername(),order.getFoodItemName(),order.getQuantity(),order.getPrice(),workRequest.getStatus(),order.getMessage()};
             model.addRow(objs);
         }
         
-        
-          
     }
+    
+    public void populateDeliveryManBox(){
+        
+        for ( DeliveryMan delieverMan : system.getDeliveryManDirectory().getDeliveryManList())
+        {
+            boxDeliveryMan.addItem(delieverMan.getUserName());
+        }
+        
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> boxDeliveryMan;
     private javax.swing.JButton btnAccept;
     private javax.swing.JButton btnAssign;
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnReject;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableOrder;

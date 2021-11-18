@@ -35,6 +35,7 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
         btnGroupSex.add(btnMale);
         btnGroupSex.add(btnFemale);
         model = (DefaultTableModel) tableCustomer.getModel();
+        displayDeliveryMen();
     }
 
     /**
@@ -66,16 +67,16 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
         txtUser = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtpwd = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnUpdateDeliveryMan = new javax.swing.JButton();
+        btnDeleteDeliveryMan = new javax.swing.JButton();
+        btnViewDeliveryMen = new javax.swing.JButton();
 
         tableCustomer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Name", "Age", "Sex", "Mail ID", "Contact"
+                "Name", "Age", "Sex", "Mail ID", "Contact", "Username", "Password"
             }
         ));
         jScrollPane2.setViewportView(tableCustomer);
@@ -112,11 +113,26 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
 
         jLabel7.setText("Password");
 
-        jButton1.setText("Update");
+        btnUpdateDeliveryMan.setText("Update");
+        btnUpdateDeliveryMan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateDeliveryManActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Delete");
+        btnDeleteDeliveryMan.setText("Delete");
+        btnDeleteDeliveryMan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteDeliveryManActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("View");
+        btnViewDeliveryMen.setText("View");
+        btnViewDeliveryMen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewDeliveryMenActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -151,18 +167,19 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
                         .addGap(240, 240, 240)
                         .addComponent(btnSave)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
+                        .addComponent(btnUpdateDeliveryMan)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
+                        .addComponent(btnDeleteDeliveryMan)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3))
+                        .addComponent(btnViewDeliveryMen))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(93, 93, 93)
-                        .addComponent(btnBack))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(65, Short.MAX_VALUE))
+                        .addComponent(btnBack)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 60, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,7 +207,6 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
@@ -200,15 +216,15 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSave)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3)))
+                            .addComponent(btnUpdateDeliveryMan)
+                            .addComponent(btnDeleteDeliveryMan)
+                            .addComponent(btnViewDeliveryMen)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel6)))
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(66, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -237,25 +253,20 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
 
         if (!isNumber(strAge))
         {
-            JOptionPane.showMessageDialog(null,"Invalid Age. Please insert a number");
+            JOptionPane.showMessageDialog(this,"Invalid Age. Please insert a number","Invalid age", 2);
             return;
         }
 
         if (!contact.matches("^\\d{10}$"))
         {
-            JOptionPane.showMessageDialog(null,"Enter a valid phone number");
+            JOptionPane.showMessageDialog(this,"Enter a valid phone number","invalid contact", 2);
             return;
         }
 
-//        if (!system.getDeliveryManDirectory().checkIfdeliveryManisUnique(user))
-//        {
-//            JOptionPane.showMessageDialog(null,"User ID exits...please select a different username");
-//            return;
-//        }
-
+    
         if (!system.getUserAccountDirectory().checkIfUsernameIsUnique(user))
         {
-            JOptionPane.showMessageDialog(null,"User ID exits...please select a different username");
+            JOptionPane.showMessageDialog(this,"User ID exits...please select a different username","User already exist",2);
             return;
         }
         
@@ -269,6 +280,83 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
 
         JOptionPane.showMessageDialog(this, "DeliveryMan information added successfully.!!", "Added DeliveryMan",1);
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnUpdateDeliveryManActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateDeliveryManActionPerformed
+        
+        String updatename = txtName.getText();
+        String updatestrAge = txtAge.getText();
+        String updatesex = getSex();
+        String updatemail = txtMail.getText();
+        String updatecontact = txtContact.getText();
+        String updateuser = txtUser.getText();
+        String updatepwd = txtpwd.getText();
+        
+        if (updatename.isEmpty()||updatestrAge.isEmpty() || updatesex.isEmpty() || updatemail.isEmpty() || updatecontact.isEmpty() || updateuser.isEmpty() || updatepwd.isEmpty())
+        {
+            JOptionPane.showMessageDialog(this, "One or More fields are empty..!", "Empty Fields", 2);
+            return;
+        }
+        
+        if (!isNumber(updatestrAge))
+        {
+            JOptionPane.showMessageDialog(this,"Invalid Age. Please insert a number");
+            return;
+        }
+        
+        if (!updatecontact.matches("^\\d{10}$"))
+        {
+            JOptionPane.showMessageDialog(this,"Enter a valid phone number");
+            return;
+        }
+        
+//        if (!system.getUserAccountDirectory().checkIfUsernameIsUnique(updateuser))
+//        {
+//            JOptionPane.showMessageDialog(null,"User ID exits...please select a different username");
+//            return;
+//        }
+        
+        int updateage = Integer.parseInt(updatestrAge);
+        
+        DeliveryMan deliveryMan = new DeliveryMan(updatename, updateage, updatesex, updatemail, updatecontact, updateuser, updatepwd);
+        
+        system.getDeliveryManDirectory().getDeliveryManList().get(row).setName(updatename);
+        system.getDeliveryManDirectory().getDeliveryManList().get(row).setAge(updateage);
+        system.getDeliveryManDirectory().getDeliveryManList().get(row).setGender(updatesex);
+        system.getDeliveryManDirectory().getDeliveryManList().get(row).setEmail(updatemail);
+        system.getDeliveryManDirectory().getDeliveryManList().get(row).setContact(updatecontact);
+        //system.getCustomerDirectory().getcustomerList().get(row).setUserName(updateuser);
+        txtUser.setEditable(false);
+        system.getDeliveryManDirectory().getDeliveryManList().get(row).setPassword(updatepwd);
+        
+        system.getUserAccountDirectory().createDeliverymanAccount(updateuser, updatepwd, deliveryMan);
+        
+        
+        displayDeliveryMen();
+
+        JOptionPane.showMessageDialog(this, "Customer information updated successfully.!!", "updated customer",1);
+        clearField();
+    }//GEN-LAST:event_btnUpdateDeliveryManActionPerformed
+
+    private void btnDeleteDeliveryManActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteDeliveryManActionPerformed
+        
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Delete this data", "Delete", dialogButton);
+        if (dialogResult == 0)
+        {
+            row = tableCustomer.getSelectedRow();
+            model.removeRow(row);
+            system.getDeliveryManDirectory().getDeliveryManList().remove(row);
+            model.setRowCount(0);
+            displayDeliveryMen();
+            clearField();
+        }
+    }//GEN-LAST:event_btnDeleteDeliveryManActionPerformed
+
+    private void btnViewDeliveryMenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDeliveryMenActionPerformed
+        
+        model.setRowCount(0);
+        displayDeliveryMen();
+    }//GEN-LAST:event_btnViewDeliveryMenActionPerformed
     
     public String getSex(){
         
@@ -286,12 +374,23 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
 		}
     }
     
+    public void clearField(){
+        
+        txtName.setText("");
+        txtAge.setText("");
+        txtMail.setText("");
+        txtContact.setText("");
+        txtUser.setText("");
+        txtpwd.setText("");
+        btnGroupSex.clearSelection();
+    }
+    
     public  void displayDeliveryMen(){
         
         model.setRowCount(0);
         
         for(DeliveryMan deliveryMan :system.getDeliveryManDirectory().getDeliveryManList()){            
-            Object[] objs = {deliveryMan.getName(),deliveryMan.getAge(),deliveryMan.getGender(),deliveryMan.getEmail(),deliveryMan.getContact()};
+            Object[] objs = {deliveryMan.getName(),deliveryMan.getAge(),deliveryMan.getGender(),deliveryMan.getEmail(),deliveryMan.getContact(),deliveryMan.getUserName(),deliveryMan.getPassword()};
             model.addRow(objs);
         }
         
@@ -299,13 +398,13 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnDeleteDeliveryMan;
     private javax.swing.JRadioButton btnFemale;
     private javax.swing.ButtonGroup btnGroupSex;
     private javax.swing.JRadioButton btnMale;
     private javax.swing.JButton btnSave;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnUpdateDeliveryMan;
+    private javax.swing.JButton btnViewDeliveryMen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

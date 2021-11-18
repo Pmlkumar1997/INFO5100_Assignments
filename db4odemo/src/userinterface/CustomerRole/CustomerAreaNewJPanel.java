@@ -51,6 +51,11 @@ public class CustomerAreaNewJPanel extends javax.swing.JPanel {
         });
 
         btnOrderStatus.setText("Order Status");
+        btnOrderStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrderStatusActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -61,7 +66,7 @@ public class CustomerAreaNewJPanel extends javax.swing.JPanel {
                 .addComponent(btnPlaceOrder)
                 .addGap(59, 59, 59)
                 .addComponent(btnOrderStatus)
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,16 +75,24 @@ public class CustomerAreaNewJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPlaceOrder)
                     .addComponent(btnOrderStatus))
-                .addContainerGap(189, Short.MAX_VALUE))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPlaceOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlaceOrderActionPerformed
         CustomerPlaceOrderJPanel customerPlaceOrderJPanel = new CustomerPlaceOrderJPanel(this.userProcessContainer, userAccount, ecosystem);
-        userProcessContainer.add("manageCustomers", customerPlaceOrderJPanel);
+        userProcessContainer.add("Order", customerPlaceOrderJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer); 
     }//GEN-LAST:event_btnPlaceOrderActionPerformed
+
+    private void btnOrderStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderStatusActionPerformed
+        
+        CustomerOrderStatusJPanel customerOrderStatusJPanel = new CustomerOrderStatusJPanel(this.userProcessContainer, userAccount);
+        userProcessContainer.add("View Orders", customerOrderStatusJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer); 
+    }//GEN-LAST:event_btnOrderStatusActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

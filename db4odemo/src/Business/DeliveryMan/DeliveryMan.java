@@ -5,6 +5,7 @@
  */
 package Business.DeliveryMan;
 
+import Business.WorkQueue.WorkQueue;
 import java.util.ArrayList;
 
 /**
@@ -21,6 +22,7 @@ public class DeliveryMan  {
     private String contact;
     private String userName;
     private String password;
+    private WorkQueue workQueue;
 
     public DeliveryMan(String name, int age, String gender, String email, String contact, String userName, String password) {
         
@@ -31,7 +33,16 @@ public class DeliveryMan  {
         this.contact = contact;
         this.userName = userName;
         this.password = password;
+        this.workQueue = new WorkQueue();
                 
+    }
+
+    public WorkQueue getWorkQueue() {
+        return workQueue;
+    }
+
+    public void setWorkQueue(WorkQueue workQueue) {
+        this.workQueue = workQueue;
     }
 
     public String getName() {
