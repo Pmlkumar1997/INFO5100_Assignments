@@ -24,21 +24,36 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="752" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" max="32767" attributes="0"/>
+                      <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="323" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="txtComment" min="-2" pref="231" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Component id="btnAddComment" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="42" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+              <EmptySpace pref="40" max="32767" attributes="0"/>
               <Component id="btnBack" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="228" max="-2" attributes="0"/>
-              <EmptySpace pref="62" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtComment" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                  <Component id="btnAddComment" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -54,18 +69,24 @@
         <Component class="javax.swing.JTable" name="tableOrder">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="0">
-                <Column editable="true" title="Restaurant Name" type="java.lang.Object"/>
-                <Column editable="true" title="Item" type="java.lang.Object"/>
-                <Column editable="true" title="Price" type="java.lang.Object"/>
-                <Column editable="true" title="Quantity" type="java.lang.Object"/>
-                <Column editable="true" title="Ordered Time" type="java.lang.Object"/>
-                <Column editable="true" title="Order Status" type="java.lang.Object"/>
-                <Column editable="true" title="Delivery Time" type="java.lang.Object"/>
+              <Table columnCount="8" rowCount="0">
+                <Column editable="false" title="Restaurant Name" type="java.lang.Object"/>
+                <Column editable="false" title="Item" type="java.lang.Object"/>
+                <Column editable="false" title="Price" type="java.lang.Object"/>
+                <Column editable="false" title="Quantity" type="java.lang.Object"/>
+                <Column editable="false" title="Ordered Time" type="java.lang.Object"/>
+                <Column editable="false" title="Order Status" type="java.lang.Object"/>
+                <Column editable="false" title="Delivery Time" type="java.lang.Object"/>
+                <Column editable="false" title="Comment" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -119,6 +140,24 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Lucida Grande" size="18" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Comments"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtComment">
+    </Component>
+    <Component class="javax.swing.JButton" name="btnAddComment">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Add Comment"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddCommentActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

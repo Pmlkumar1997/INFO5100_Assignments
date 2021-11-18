@@ -38,7 +38,7 @@ public class ManageRestaurantJPanel extends javax.swing.JPanel {
         this.userProcessContainer=userProcessContainer;
         this.system = system;
         model = (DefaultTableModel) tableRestaurant.getModel();
-        displayRestaurant();
+        
     }
 
     /**
@@ -64,9 +64,9 @@ public class ManageRestaurantJPanel extends javax.swing.JPanel {
         tableRestaurant = new javax.swing.JTable();
         btnSave = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnUpdateRestaurant = new javax.swing.JButton();
+        btnDeleteRestaurant = new javax.swing.JButton();
+        btnView = new javax.swing.JButton();
 
         jLabel1.setText("Restaurant Name");
 
@@ -88,6 +88,11 @@ public class ManageRestaurantJPanel extends javax.swing.JPanel {
                 "Restaurant Name", "Location", "Manager", "Username", "Password"
             }
         ));
+        tableRestaurant.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableRestaurantMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableRestaurant);
 
         btnSave.setText("Save");
@@ -104,11 +109,26 @@ public class ManageRestaurantJPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Update");
+        btnUpdateRestaurant.setText("Update");
+        btnUpdateRestaurant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateRestaurantActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Delete");
+        btnDeleteRestaurant.setText("Delete");
+        btnDeleteRestaurant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteRestaurantActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("View");
+        btnView.setText("View");
+        btnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -137,11 +157,11 @@ public class ManageRestaurantJPanel extends javax.swing.JPanel {
                                     .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)
+                                .addComponent(btnUpdateRestaurant)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2)
+                                .addComponent(btnDeleteRestaurant)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton3))))
+                                .addComponent(btnView))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(btnBack))
@@ -178,9 +198,9 @@ public class ManageRestaurantJPanel extends javax.swing.JPanel {
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnUpdateRestaurant)
+                    .addComponent(btnDeleteRestaurant)
+                    .addComponent(btnView))
                 .addGap(35, 35, 35)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(83, Short.MAX_VALUE))
@@ -218,14 +238,16 @@ public class ManageRestaurantJPanel extends javax.swing.JPanel {
         employee.setName(mgr);
         AdminRole role = new AdminRole();
         UserAccount userAccount =  system.getUserAccountDirectory().createUserAccount(user, pwd, employee,role);
-        System.out.println(userAccount);
+        //System.out.println(userAccount);
 
         Restaurant restaurant = new Restaurant(name, location, userAccount);
         system.getRestaurantDirectory().addRestaurant(restaurant);
+        system.getUserAccountDirectory().createUserAccount(user, pwd, employee, role);
 
         displayRestaurant();
 
         JOptionPane.showMessageDialog(this, "Restaurant information added successfully.!!", "Added Restaurant",1);
+        clearField();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -233,27 +255,94 @@ public class ManageRestaurantJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnUpdateRestaurantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateRestaurantActionPerformed
+        
+        String updateRestaurantName = txtName.getText();
+        String updateLocation = boxLocation.getSelectedItem().toString();
+        String updateManagerName = txtManager.getText();
+        String updateUserName = txtUserName.getText();
+        String updatePassword = txtPassword.getText();
+        
+         if(updateRestaurantName.isEmpty() || updateLocation.isEmpty() || updateManagerName.isEmpty() || updateUserName.isEmpty() || updatePassword.isEmpty()) {
+            JOptionPane.showMessageDialog(this,"One or more fields are empty. Please check..||");
+            return;
+        }
+        
+        Employee employee = new Employee();
+        employee.setName(updateManagerName);
+        AdminRole role = new AdminRole();
+        UserAccount userAccount =  system.getUserAccountDirectory().createUserAccount(updateUserName, updatePassword, employee,role);
+        Restaurant restaurant = new Restaurant(updateRestaurantName, updateLocation, userAccount);
+        
+        system.getRestaurantDirectory().getRestaurantList().get(row).setRestaurantName(updateRestaurantName);
+        system.getRestaurantDirectory().getRestaurantList().get(row).setLocation(updateLocation);
+        
+        displayRestaurant();
+        JOptionPane.showMessageDialog(this, "Restaurant information updated successfully.!!", "updated restaurant",1);
+        clearField();
+    }//GEN-LAST:event_btnUpdateRestaurantActionPerformed
+
+    private void btnDeleteRestaurantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteRestaurantActionPerformed
+        
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Delete this data", "Delete", dialogButton);
+        if (dialogResult == 0)
+        {
+            row = tableRestaurant.getSelectedRow();
+            system.getRestaurantDirectory().getRestaurantList().remove(row);
+            String UserName = model.getValueAt(row, 3).toString();
+            system.getUserAccountDirectory().removeUserAccount(UserName);
+            displayRestaurant();
+            clearField();
+        }
+        
+    }//GEN-LAST:event_btnDeleteRestaurantActionPerformed
+
+    private void tableRestaurantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableRestaurantMouseClicked
+        
+        row = tableRestaurant.getSelectedRow();
+        col = tableRestaurant.getSelectedColumn();
+        
+        txtName.setText(model.getValueAt(row, 0).toString());
+        boxLocation.setSelectedItem(model.getValueAt(row, 1).toString());
+        txtManager.setText(model.getValueAt(row, 2).toString());
+        txtUserName.setText(model.getValueAt(row, 3).toString());
+        txtPassword.setText(model.getValueAt(row, 4).toString());
+    }//GEN-LAST:event_tableRestaurantMouseClicked
+
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        displayRestaurant();
+    }//GEN-LAST:event_btnViewActionPerformed
     
     public  void displayRestaurant(){
         
         model.setRowCount(0);
         
-        for(Restaurant restaurant :system.getRestaurantDirectory().getRestaurantList()){    
-            String managerName = restaurant.getUserAccount().getEmployee().getName() ;
-            //String managerName = "san";
-            Object[] objs = {restaurant.getRestaurantName(),restaurant.getLocation(),managerName,restaurant.getUserAccount().getUsername(),restaurant.getUserAccount().getPassword()};
+        for(Restaurant restaurant : system.getRestaurantDirectory().getRestaurantList()){    
+            
+            Object[] objs = {restaurant.getRestaurantName(),restaurant.getLocation(),restaurant.getUserAccount().getEmployee().getName(),restaurant.getUserAccount().getUsername(),restaurant.getUserAccount().getPassword()};
             model.addRow(objs);
         }
         
+    }
+    
+    public void clearField(){
+        
+        txtName.setText("");
+        boxLocation.setSelectedIndex(0);
+        txtManager.setText("");
+        txtUserName.setText("");
+        txtPassword.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> boxLocation;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnDeleteRestaurant;
     private javax.swing.JButton btnSave;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnUpdateRestaurant;
+    private javax.swing.JButton btnView;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

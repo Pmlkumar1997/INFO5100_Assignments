@@ -10,6 +10,7 @@ import Business.WorkQueue.Order;
 import Business.WorkQueue.WorkQueue;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -48,15 +49,26 @@ public class CustomerOrderStatusJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableOrder = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtComment = new javax.swing.JTextField();
+        btnAddComment = new javax.swing.JButton();
 
         tableOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Restaurant Name", "Item", "Price", "Quantity", "Ordered Time", "Order Status", "Delivery Time"
+                "Restaurant Name", "Item", "Price", "Quantity", "Ordered Time", "Order Status", "Delivery Time", "Comment"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tableOrder.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableOrderMouseClicked(evt);
@@ -71,6 +83,16 @@ public class CustomerOrderStatusJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel1.setText("Comments");
+
+        btnAddComment.setText("Add Comment");
+        btnAddComment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddCommentActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -82,17 +104,30 @@ public class CustomerOrderStatusJPanel extends javax.swing.JPanel {
                         .addComponent(btnBack))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(75, 75, 75)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1)
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(323, 323, 323)
+                        .addComponent(jLabel1)
+                        .addGap(33, 33, 33)
+                        .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(btnAddComment)))
+                .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addContainerGap(40, Short.MAX_VALUE)
                 .addComponent(btnBack)
                 .addGap(40, 40, 40)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddComment))
+                .addGap(36, 36, 36))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -117,6 +152,32 @@ public class CustomerOrderStatusJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnAddCommentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCommentActionPerformed
+        
+        row = tableOrder.getSelectedRow();
+        String comment = txtComment.getText();
+        
+        if (comment.isEmpty())
+        {
+            JOptionPane.showMessageDialog(this, "please comment", comment, 1);
+            return;
+        }
+        
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+            int dialogResult = JOptionPane.showConfirmDialog(this, "Do you want to add this comment?", "Add comment", dialogButton);
+            if (dialogResult == 0)
+            {
+                
+                WorkQueue workQueue = userAccount.getWorkQueue();
+                Order order = (Order)workQueue.getWorkRequestList().get(row);
+                order.setMessage(comment);
+           
+                populateOrderTable();
+                JOptionPane.showMessageDialog(this, "Comment added successfully..!!","Comments",1);
+            }
+        
+    }//GEN-LAST:event_btnAddCommentActionPerformed
     
     public void populateOrderTable(){
     
@@ -124,14 +185,17 @@ public class CustomerOrderStatusJPanel extends javax.swing.JPanel {
         WorkQueue workQueue = userAccount.getWorkQueue();
         for(WorkRequest workRequest : workQueue.getWorkRequestList() ){
             Order order = (Order) workRequest;
-            Object[] objs = {order.getRestaurantName(),order.getFoodItemName(),order.getPrice(),order.getQuantity(),order.getRequestDate(),order.getStatus(),order.getResolveDate()};
+            Object[] objs = {order.getRestaurantName(),order.getFoodItemName(),order.getPrice(),order.getQuantity(),order.getRequestDate(),order.getStatus(),order.getResolveDate(),order.getMessage()};
             model.addRow(objs);
         }
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddComment;
     private javax.swing.JButton btnBack;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableOrder;
+    private javax.swing.JTextField txtComment;
     // End of variables declaration//GEN-END:variables
 }

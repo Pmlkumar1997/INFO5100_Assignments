@@ -20,6 +20,7 @@ public class Order extends WorkRequest{
         this.price = price;
         this.quantity = quantity;
         this.restaurantName = restaurantName;
+        this.setMessage("");
     }
     
 

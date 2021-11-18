@@ -23,7 +23,6 @@ public class DeliveryManWorkAreaNewJpanel extends javax.swing.JPanel {
     
     private JPanel userProcessContainer;
     private UserAccount userAccount;
-    private DeliveryMan deliveryMan;
     DefaultTableModel model;
     int row,col;
 
@@ -31,10 +30,9 @@ public class DeliveryManWorkAreaNewJpanel extends javax.swing.JPanel {
      * Creates new form DeliveryManWorkAreaNewJpanel
      */
     public DeliveryManWorkAreaNewJpanel(JPanel userProcessContainer, UserAccount account) {
+        
         initComponents();
-        
         this.userProcessContainer = userProcessContainer;
-        
         this.userAccount = account;
         model = (DefaultTableModel) tableOrder.getModel();
         populateOrderTable();
@@ -57,20 +55,20 @@ public class DeliveryManWorkAreaNewJpanel extends javax.swing.JPanel {
 
         tableOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "RestaurantName", "Item Name", "Quantity", "Receiver", "Status"
+                "RestaurantName", "Item Name", "Quantity", "Receiver", "Status", "Comment"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, true
+                false, true, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -79,6 +77,11 @@ public class DeliveryManWorkAreaNewJpanel extends javax.swing.JPanel {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tableOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableOrderMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tableOrder);
@@ -109,18 +112,19 @@ public class DeliveryManWorkAreaNewJpanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(refreshJButton)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(refreshJButton)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(126, 126, 126)
                             .addComponent(assignJButton)
                             .addGap(65, 65, 65)
-                            .addComponent(processJButton))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(65, 65, 65)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(90, Short.MAX_VALUE))
+                            .addComponent(processJButton)
+                            .addGap(145, 145, 145)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,7 +137,7 @@ public class DeliveryManWorkAreaNewJpanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(assignJButton)
                     .addComponent(processJButton))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -154,19 +158,19 @@ public class DeliveryManWorkAreaNewJpanel extends javax.swing.JPanel {
 
     private void processJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processJButtonActionPerformed
         
-        if (model.getValueAt(row, 4) == "Accepted")
+        if (model.getValueAt(row, 4).toString().equalsIgnoreCase("Assigned"))
         {
-            JOptionPane.showMessageDialog(this,"Please assign order before processing", "Order not assigned", 2);
+            JOptionPane.showMessageDialog(this,"Please accept order before processing", "Order not accepted", 2);
         }
         
-        else if (model.getValueAt(row, 4) == "On the way")
+        else if (model.getValueAt(row, 4).toString().equalsIgnoreCase("On the way"))
         {
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int dialogResult = JOptionPane.showConfirmDialog(this, "Process the order?", "process order", dialogButton);
             if (dialogResult == 0)
             {
                 
-                WorkQueue workQueue = deliveryMan.getWorkQueue();
+                WorkQueue workQueue = userAccount.getWorkQueue();
                 Order order = (Order)workQueue.getWorkRequestList().get(row);
                 order.setStatus("Delivered");
                 order.setResolveDate(new Date());
@@ -175,11 +179,21 @@ public class DeliveryManWorkAreaNewJpanel extends javax.swing.JPanel {
             }
         }
         
+        else if (model.getValueAt(row, 4).toString().equalsIgnoreCase("Delivered"))
+        {
+            JOptionPane.showMessageDialog(this,"Order is already delivered", "Order delivered", 2);
+        }
+        
     }//GEN-LAST:event_processJButtonActionPerformed
 
     private void refreshJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshJButtonActionPerformed
         populateOrderTable();
     }//GEN-LAST:event_refreshJButtonActionPerformed
+
+    private void tableOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableOrderMouseClicked
+        row = tableOrder.getSelectedRow();
+        col = tableOrder.getColumnCount();
+    }//GEN-LAST:event_tableOrderMouseClicked
 
 
        public void populateOrderTable(){
@@ -188,7 +202,7 @@ public class DeliveryManWorkAreaNewJpanel extends javax.swing.JPanel {
         WorkQueue workQueue = userAccount.getWorkQueue();
         for(WorkRequest workRequest : workQueue.getWorkRequestList() ){
             Order order = (Order) workRequest;
-            Object[] objs = {order.getRestaurantName(),order.getFoodItemName(),order.getQuantity(), order.getReceiver().getUsername(),order.getStatus()};
+            Object[] objs = {order.getRestaurantName(),order.getFoodItemName(),order.getQuantity(), order.getReceiver().getUsername(),order.getStatus(), order.getMessage()};
             model.addRow(objs);
         }
 }

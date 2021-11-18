@@ -77,4 +77,20 @@ public class UserAccountDirectory {
         }
         return true;
     }
+    
+    public void removeUserAccount(String userName){
+        
+        UserAccount tempUserAccount = null;
+        
+        for(UserAccount userAccount : userAccountList){
+            if(userAccount.getUsername().equalsIgnoreCase(userName))
+            {
+                tempUserAccount = userAccount;
+                break;
+            }
+        }
+        
+        if(tempUserAccount != null)
+            userAccountList.remove(tempUserAccount);
+    }
 }

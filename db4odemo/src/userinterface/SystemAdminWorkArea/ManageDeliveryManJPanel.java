@@ -34,8 +34,8 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
         this.system = system;
         btnGroupSex.add(btnMale);
         btnGroupSex.add(btnFemale);
-        model = (DefaultTableModel) tableCustomer.getModel();
-        displayDeliveryMen();
+        model = (DefaultTableModel) tableDeliveryMan.getModel();
+        
     }
 
     /**
@@ -50,7 +50,7 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
         btnGroupSex = new javax.swing.ButtonGroup();
         txtMail = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tableCustomer = new javax.swing.JTable();
+        tableDeliveryMan = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
         txtContact = new javax.swing.JTextField();
@@ -71,7 +71,7 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
         btnDeleteDeliveryMan = new javax.swing.JButton();
         btnViewDeliveryMen = new javax.swing.JButton();
 
-        tableCustomer.setModel(new javax.swing.table.DefaultTableModel(
+        tableDeliveryMan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -79,7 +79,12 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
                 "Name", "Age", "Sex", "Mail ID", "Contact", "Username", "Password"
             }
         ));
-        jScrollPane2.setViewportView(tableCustomer);
+        tableDeliveryMan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableDeliveryManMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tableDeliveryMan);
 
         jLabel5.setText("Contact");
 
@@ -174,12 +179,11 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
                         .addComponent(btnViewDeliveryMen))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(93, 93, 93)
-                        .addComponent(btnBack)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 60, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
+                        .addComponent(btnBack))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,24 +211,23 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(txtpwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnSave)
-                            .addComponent(btnUpdateDeliveryMan)
-                            .addComponent(btnDeleteDeliveryMan)
-                            .addComponent(btnViewDeliveryMen)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6)))
-                .addGap(38, 38, 38)
+                .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtpwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSave)
+                    .addComponent(btnUpdateDeliveryMan)
+                    .addComponent(btnDeleteDeliveryMan)
+                    .addComponent(btnViewDeliveryMen))
+                .addGap(34, 34, 34)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -325,11 +328,16 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
         system.getDeliveryManDirectory().getDeliveryManList().get(row).setEmail(updatemail);
         system.getDeliveryManDirectory().getDeliveryManList().get(row).setContact(updatecontact);
         //system.getCustomerDirectory().getcustomerList().get(row).setUserName(updateuser);
-        txtUser.setEditable(false);
+        //txtUser.setEditable(false);
         system.getDeliveryManDirectory().getDeliveryManList().get(row).setPassword(updatepwd);
         
         system.getUserAccountDirectory().createDeliverymanAccount(updateuser, updatepwd, deliveryMan);
         
+        if (!tableDeliveryMan.getValueAt(row, 5).equals(updateuser))
+        {
+           JOptionPane.showMessageDialog(this, "username cannot be changed", "change username", 2);
+           return;
+        }
         
         displayDeliveryMen();
 
@@ -343,10 +351,10 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
         int dialogResult = JOptionPane.showConfirmDialog(this, "Delete this data", "Delete", dialogButton);
         if (dialogResult == 0)
         {
-            row = tableCustomer.getSelectedRow();
-            model.removeRow(row);
+            row = tableDeliveryMan.getSelectedRow();
             system.getDeliveryManDirectory().getDeliveryManList().remove(row);
-            model.setRowCount(0);
+            String UserName = model.getValueAt(row, 5).toString();
+            system.getUserAccountDirectory().removeUserAccount(UserName);
             displayDeliveryMen();
             clearField();
         }
@@ -354,9 +362,29 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
 
     private void btnViewDeliveryMenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDeliveryMenActionPerformed
         
-        model.setRowCount(0);
         displayDeliveryMen();
     }//GEN-LAST:event_btnViewDeliveryMenActionPerformed
+
+    private void tableDeliveryManMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDeliveryManMouseClicked
+       
+        row = tableDeliveryMan.getSelectedRow();
+        col = tableDeliveryMan.getColumnCount();
+        
+        txtName.setText(model.getValueAt(row, 0).toString());
+        txtAge.setText(model.getValueAt(row, 1).toString());
+        if (model.getValueAt(row, 2).toString().equals("Male"))
+        {
+            btnMale.doClick();
+        }
+        if (model.getValueAt(row, 2).toString().equals("Female"))
+        {
+            btnFemale.doClick();
+        }
+        txtMail.setText(model.getValueAt(row, 3).toString());
+        txtContact.setText(model.getValueAt(row, 4).toString());
+        txtUser.setText(model.getValueAt(row, 5).toString());
+        txtpwd.setText(model.getValueAt(row, 6).toString());
+    }//GEN-LAST:event_tableDeliveryManMouseClicked
     
     public String getSex(){
         
@@ -389,7 +417,7 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
         
         model.setRowCount(0);
         
-        for(DeliveryMan deliveryMan :system.getDeliveryManDirectory().getDeliveryManList()){            
+        for(DeliveryMan deliveryMan : system.getDeliveryManDirectory().getDeliveryManList()){            
             Object[] objs = {deliveryMan.getName(),deliveryMan.getAge(),deliveryMan.getGender(),deliveryMan.getEmail(),deliveryMan.getContact(),deliveryMan.getUserName(),deliveryMan.getPassword()};
             model.addRow(objs);
         }
@@ -413,7 +441,7 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tableCustomer;
+    private javax.swing.JTable tableDeliveryMan;
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtContact;
     private javax.swing.JTextField txtMail;

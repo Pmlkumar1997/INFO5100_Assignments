@@ -16,20 +16,26 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btnBack" min="-2" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" min="-2" pref="571" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="btnAccept" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnReject" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="boxDeliveryMan" min="-2" pref="177" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                       <Component id="btnAssign" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" alignment="0" min="-2" pref="571" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
+                      <Component id="btnViewAllOrders" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="btnViewActiveOrders" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="142" max="32767" attributes="0"/>
           </Group>
@@ -49,7 +55,12 @@
                   <Component id="btnAssign" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="boxDeliveryMan" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="159" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnViewAllOrders" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnViewActiveOrders" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="87" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -112,6 +123,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tableOrderMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -158,6 +172,16 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnViewAllOrders">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="View All Orders"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnViewActiveOrders">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="View Active Orders"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

@@ -27,15 +27,19 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private Restaurant restaurant;
     DefaultTableModel model;
+    private Menu menu;
     int row,col;
     
     public ManageMenuJPanel(JPanel userProcessContainer, Restaurant restaurant) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
         this.restaurant = restaurant;
+        this.menu = menu;
         model = (DefaultTableModel) tableItem.getModel();
         btnGroupAvail.add(btnYes);
         btnGroupAvail.add(btnNo);
+        displayMenu(menu.getItemsList());
+        
     }
 
     /**
@@ -229,8 +233,8 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
     private void btnUpdateItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateItemActionPerformed
         
         String updateitemName = txtItem.getText();
-       String updatestrPrice = txtPrice.getText();
-       String updateavail = getAvailability();
+        String updatestrPrice = txtPrice.getText();
+        String updateavail = getAvailability();
         
         if (updateitemName.isEmpty()||updatestrPrice.isEmpty() || updateavail.isEmpty())
         {
@@ -292,7 +296,6 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
             model.removeRow(row);
             Menu menu = restaurant.getMenu();
             menu.getItemsList().remove(row);
-            model.setRowCount(0);
             displayMenu(menu.getItemsList());
             clearField();
         }

@@ -33,7 +33,7 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
         buttonGroupSex.add(btnMale);
         buttonGroupSex.add(btnFemale);
         model = (DefaultTableModel) tableCustomer.getModel();
-        displayCustomers();
+        
     }
 
     /**
@@ -270,20 +270,20 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
         
         if (!isNumber(strAge))
         {
-            JOptionPane.showMessageDialog(null,"Invalid Age. Please insert a number");
+            JOptionPane.showMessageDialog(this,"Invalid Age. Please insert a number");
             return;
         }
         
         if (!contact.matches("^\\d{10}$"))
         {
-            JOptionPane.showMessageDialog(null,"Enter a valid phone number");
+            JOptionPane.showMessageDialog(this,"Enter a valid phone number");
             return;
         }
         
         
         if (!system.getUserAccountDirectory().checkIfUsernameIsUnique(user))
         {
-            JOptionPane.showMessageDialog(null,"User ID exits...please select a different username");
+            JOptionPane.showMessageDialog(this,"User ID exits...please select a different username");
             return;
         }
         
@@ -300,6 +300,8 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        
+        
         String updatename = txtName.getText();
         String updatestrAge = txtAge.getText();
         String updatesex = getSex();
@@ -307,7 +309,7 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
         String updatecontact = txtContact.getText();
         String updateuser = txtUser.getText();
         String updatepwd = txtpwd.getText();
-        
+      
         if (updatename.isEmpty()||updatestrAge.isEmpty() || updatesex.isEmpty() || updatemail.isEmpty() || updatecontact.isEmpty() || updateuser.isEmpty() || updatepwd.isEmpty())
         {
             JOptionPane.showMessageDialog(this, "One or More fields are empty..!", "Empty Fields", 2);
@@ -342,11 +344,16 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
         system.getCustomerDirectory().getcustomerList().get(row).setEmail(updatemail);
         system.getCustomerDirectory().getcustomerList().get(row).setContact(updatecontact);
         //system.getCustomerDirectory().getcustomerList().get(row).setUserName(updateuser);
-        txtUser.setEditable(false);
+        
         system.getCustomerDirectory().getcustomerList().get(row).setPassword(updatepwd);
         
         system.getUserAccountDirectory().createCustomerAccount(updateuser, updatepwd, customer);
         
+        if (!tableCustomer.getValueAt(row, 5).equals(updateuser))
+        {
+           JOptionPane.showMessageDialog(this, "username cannot be changed", "change username", 2);
+           return;
+        }
         
         displayCustomers();
 
@@ -383,9 +390,9 @@ public class ManageCustomersJPanel extends javax.swing.JPanel {
         if (dialogResult == 0)
         {
             row = tableCustomer.getSelectedRow();
-            model.removeRow(row);
             system.getCustomerDirectory().getcustomerList().remove(row);
-            model.setRowCount(0);
+            String UserName = model.getValueAt(row, 5).toString();
+            system.getUserAccountDirectory().removeUserAccount(UserName);
             displayCustomers();
             clearField();
         }
