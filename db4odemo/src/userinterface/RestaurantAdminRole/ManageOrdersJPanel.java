@@ -13,6 +13,8 @@ import Business.WorkQueue.Order;
 import Business.WorkQueue.WorkQueue;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -29,16 +31,18 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private EcoSystem system;
     DefaultTableModel model;
-    int row,col;
-    private  Restaurant restaurant;
+    int row, col;
+    private Restaurant restaurant;
+
     public ManageOrdersJPanel(JPanel userProcessContainer, EcoSystem system, Restaurant restaurant) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.system = system;
         this.restaurant = restaurant;
         model = (DefaultTableModel) tableOrder.getModel();
-        populateDeliveryManBox(); 
-        populateTableOrder();
+        populateDeliveryManBox();
+        WorkQueue workQueue = restaurant.getWorkQueue();
+        populateTableOrder(workQueue.getWorkRequestList());
     }
 
     /**
@@ -106,8 +110,18 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         boxDeliveryMan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Delivery Man" }));
 
         btnViewAllOrders.setText("View All Orders");
+        btnViewAllOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewAllOrdersActionPerformed(evt);
+            }
+        });
 
         btnViewActiveOrders.setText("View Active Orders");
+        btnViewActiveOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActiveOrdersActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -155,30 +169,23 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
-        
-        
-        
+
         String currentStatus = model.getValueAt(row, 4).toString();
-        
-        if(currentStatus.equalsIgnoreCase("Ordered"))
-        {
+
+        if (currentStatus.equalsIgnoreCase("Ordered")) {
             restaurant.getWorkQueue().getWorkRequestList().get(row).setStatus("Accepted");
-            populateTableOrder();
-        }
-        
-        else if(currentStatus.equalsIgnoreCase("rejected")){
-            
+            WorkQueue workQueue = restaurant.getWorkQueue();
+            populateTableOrder(workQueue.getWorkRequestList());
+        } else if (currentStatus.equalsIgnoreCase("rejected")) {
+
             JOptionPane.showMessageDialog(this, "Rejected Order cannot be accepted", " Order Rejected", 1);
-            
-        }
-        else{
+
+        } else {
             JOptionPane.showMessageDialog(this, "This order is already accepted", " Order Accepted", 1);
-            
+
         }
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_btnAcceptActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -190,51 +197,57 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
 
     private void btnRejectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRejectActionPerformed
         String currentStatus = model.getValueAt(row, 3).toString();
-        
-        if(currentStatus.equalsIgnoreCase("Ordered"))
-        {
+
+        if (currentStatus.equalsIgnoreCase("Ordered")) {
             restaurant.getWorkQueue().getWorkRequestList().get(row).setStatus("Rejected");
-            populateTableOrder();
-        }
-        
-        else if(currentStatus.equalsIgnoreCase("rejected")){
-            
+            WorkQueue workQueue = restaurant.getWorkQueue();
+            populateTableOrder(workQueue.getWorkRequestList());
+        } else if (currentStatus.equalsIgnoreCase("rejected")) {
+
             JOptionPane.showMessageDialog(this, "This order is already Rejected", " Order Rejected", 1);
-            
-        }
-        else
-        {
+
+        } else {
             JOptionPane.showMessageDialog(this, "Accepted orders cannot be rejected", " Order Accepted", 1);
-            
+
         }
     }//GEN-LAST:event_btnRejectActionPerformed
 
     private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
-        
-        
+
         String deliveryManUserName = boxDeliveryMan.getSelectedItem().toString();
-        
-        if(deliveryManUserName.equalsIgnoreCase("Select Delivery Man")){
+        String currentStatus = model.getValueAt(row, 4).toString();
+
+        if (deliveryManUserName.equalsIgnoreCase("Select Delivery Man")) {
             JOptionPane.showMessageDialog(this, "Please select Deliver Man", "Delivery Man Missing", 1);
             return;
-            
+
         }
-        
+
+        if (currentStatus.equalsIgnoreCase("Rejected")) {
+            JOptionPane.showMessageDialog(this, "Rejected orders cannot be assigned", " Order Rejected", 1);
+            return;
+        }
+
+        if (currentStatus.equalsIgnoreCase("Assigned")) {
+            JOptionPane.showMessageDialog(this, "This order is already assigned to deliver man", " Order Assigned", 1);
+            return;
+        }
+
         UserAccount deliveryManAccount = null;
-        for ( UserAccount userAccount : system.getUserAccountDirectory().getUserAccountList())
-        {
-            if(userAccount.getUsername().equalsIgnoreCase(deliveryManUserName))
-           deliveryManAccount =  userAccount;
+        for (UserAccount userAccount : system.getUserAccountDirectory().getUserAccountList()) {
+            if (userAccount.getUsername().equalsIgnoreCase(deliveryManUserName)) {
+                deliveryManAccount = userAccount;
+            }
         }
-        
+
         Order order = (Order) restaurant.getWorkQueue().getWorkRequestList().get(row);
         order.setSender(deliveryManAccount);
         order.setStatus("Assigned");
-        
         deliveryManAccount.getWorkQueue().addWorkRequest(order);
-        
-        
-        
+        WorkQueue workQueue = restaurant.getWorkQueue();
+        populateTableOrder(workQueue.getWorkRequestList());
+        JOptionPane.showMessageDialog(this, "Order assigned to delivery man", "order assigned",1);
+
     }//GEN-LAST:event_btnAssignActionPerformed
 
     private void tableOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableOrderMouseClicked
@@ -243,30 +256,46 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         col = tableOrder.getColumnCount();
     }//GEN-LAST:event_tableOrderMouseClicked
 
+    private void btnViewAllOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewAllOrdersActionPerformed
 
-    public void populateTableOrder()
-    {
-        model.setRowCount(0);
         WorkQueue workQueue = restaurant.getWorkQueue();
-        
-        for(WorkRequest workRequest : workQueue.getWorkRequestList() ){
+        populateTableOrder(workQueue.getWorkRequestList());
+    }//GEN-LAST:event_btnViewAllOrdersActionPerformed
+
+    private void btnViewActiveOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActiveOrdersActionPerformed
+
+        List<WorkRequest> activeList = new ArrayList<>();
+        WorkQueue workQueue = restaurant.getWorkQueue();
+        for (WorkRequest workRequest : workQueue.getWorkRequestList()) {
+
+            if (workRequest.getStatus().equalsIgnoreCase("Ordered")) {
+                activeList.add(workRequest);
+            }
+        }
+
+        populateTableOrder(activeList);
+    }//GEN-LAST:event_btnViewActiveOrdersActionPerformed
+
+    public void populateTableOrder(List<WorkRequest> workRequestList) {
+        model.setRowCount(0);
+       
+        for (WorkRequest workRequest : workRequestList) {
             Order order = (Order) workRequest;
-            Object[] objs = {workRequest.getReceiver().getUsername(),order.getFoodItemName(),order.getQuantity(),order.getPrice(),workRequest.getStatus(),order.getMessage()};
+            Object[] objs = {workRequest.getReceiver().getUsername(), order.getFoodItemName(), order.getQuantity(), order.getPrice(), workRequest.getStatus(), order.getMessage()};
             model.addRow(objs);
         }
-        
+
     }
-    
-    public void populateDeliveryManBox(){
-        
-        for ( DeliveryMan delieverMan : system.getDeliveryManDirectory().getDeliveryManList())
-        {
+
+    public void populateDeliveryManBox() {
+
+        for (DeliveryMan delieverMan : system.getDeliveryManDirectory().getDeliveryManList()) {
             boxDeliveryMan.addItem(delieverMan.getUserName());
         }
-        
+
     }
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> boxDeliveryMan;
     private javax.swing.JButton btnAccept;

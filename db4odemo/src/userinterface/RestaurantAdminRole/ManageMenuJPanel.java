@@ -27,18 +27,17 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private Restaurant restaurant;
     DefaultTableModel model;
-    private Menu menu;
+    //private Menu menu;
     int row,col;
     
     public ManageMenuJPanel(JPanel userProcessContainer, Restaurant restaurant) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
         this.restaurant = restaurant;
-        this.menu = menu;
         model = (DefaultTableModel) tableItem.getModel();
         btnGroupAvail.add(btnYes);
         btnGroupAvail.add(btnNo);
-        displayMenu(menu.getItemsList());
+        displayMenu(restaurant.getMenu().getItemsList());
         
     }
 
@@ -209,13 +208,13 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
         
         if (!isNumber(strPrice))
         {
-            JOptionPane.showMessageDialog(null,"Invalid Age. Please insert a number");
+            JOptionPane.showMessageDialog(this,"Invalid Price. Please insert a number","Invalid price",2);
             return;
         }
         
         if (!restaurant.getMenu().checkIfItemExist(itemName))
         {
-            JOptionPane.showMessageDialog(this,"Item already exist in menu");
+            JOptionPane.showMessageDialog(this,"Item already exist in menu","Item exists",2);
             return;
         }
         

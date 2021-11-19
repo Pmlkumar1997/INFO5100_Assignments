@@ -24,7 +24,9 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.ecosystem = business;
         this.userAccount = userAccount;
-        //valueLabel.setText();
+        //test code
+        Restaurant restaurant = getRestaurant();
+        System.out.println(restaurant.getMenu().getItemsList());    
     }
     
     /** This method is called from within the constructor to
@@ -83,8 +85,8 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     private void userJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userJButtonActionPerformed
          
         Restaurant restaurant = getRestaurant();
-        ManageOrdersJPanel manageOrdersJPanel = new ManageOrdersJPanel(userProcessContainer, ecosystem, restaurant);
-        userProcessContainer.add("manageOrdersJPanel", manageOrdersJPanel);
+        ManageRestaurantInfoJPanel manageRestaurantInfoJPanel = new ManageRestaurantInfoJPanel(userProcessContainer, restaurant);
+        userProcessContainer.add("manageRestaurantInfoJPanel", manageRestaurantInfoJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer); 
         

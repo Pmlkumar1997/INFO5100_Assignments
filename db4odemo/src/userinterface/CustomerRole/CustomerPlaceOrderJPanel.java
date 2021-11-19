@@ -213,25 +213,29 @@ public class CustomerPlaceOrderJPanel extends javax.swing.JPanel {
        String itemName = txtItemName.getText();
        String strPrice = txtPrice.getText();
        int quantity = Integer.parseInt(boxQuantity.getSelectedItem().toString());
-        if (itemName.isEmpty()||strPrice.isEmpty())
+       if (itemName.isEmpty()||strPrice.isEmpty())
         {
             JOptionPane.showMessageDialog(this, "One or More fields are empty..!", "Empty Fields", 2);
             return;
         }
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Do you want to place the order", "Place Order", dialogButton);
+        if (dialogResult == 0)
+        {
+            double price = Double.parseDouble(strPrice) * quantity;
+            String RestaurantName = restaurantComboBox.getSelectedItem().toString();
+            Order order = new Order(itemName, price, quantity, RestaurantName);
+            order.setStatus("Ordered");
+
+            order.setReceiver(userAccount);
+            userAccount.getWorkQueue().addWorkRequest(order);
+
+            Restaurant restaurant = ecosystem.getRestaurantDirectory().getRestaurant(RestaurantName);
+            restaurant.getWorkQueue().addWorkRequest(order);
+
+            JOptionPane.showMessageDialog(this, "Order placed successfully!!", "Order", 1);
         
-        double price = Double.parseDouble(strPrice) * quantity;
-        String RestaurantName = restaurantComboBox.getSelectedItem().toString();
-        Order order = new Order(itemName, price, quantity, RestaurantName);
-        order.setStatus("Ordered");
-        
-        order.setReceiver(userAccount);
-        userAccount.getWorkQueue().addWorkRequest(order);
-        
-        Restaurant restaurant = ecosystem.getRestaurantDirectory().getRestaurant(RestaurantName);
-        restaurant.getWorkQueue().addWorkRequest(order);
-        
-         JOptionPane.showMessageDialog(this, "Order placed successfully!!", "Order", 1);
-        
+        }
     }//GEN-LAST:event_btnOrderActionPerformed
 
     public void populateRestaurantBox(){

@@ -31,7 +31,6 @@ public class CustomerOrderStatusJPanel extends javax.swing.JPanel {
     public CustomerOrderStatusJPanel(JPanel userProcessContainer, UserAccount account) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        
         this.userAccount = account;
         model = (DefaultTableModel) tableOrder.getModel();
         populateOrderTable();
@@ -58,7 +57,7 @@ public class CustomerOrderStatusJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Restaurant Name", "Item", "Price", "Quantity", "Ordered Time", "Order Status", "Delivery Time", "Comment"
+                "Restaurant Name", "Item", "Order Value", "Quantity", "Ordered Time", "Order Status", "Delivery Time", "Comment"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -100,34 +99,34 @@ public class CustomerOrderStatusJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(btnBack))
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 853, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnBack)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(jScrollPane1)
-                        .addGap(18, 18, 18))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(323, 323, 323)
+                        .addGap(232, 232, 232)
                         .addComponent(jLabel1)
-                        .addGap(33, 33, 33)
+                        .addGap(54, 54, 54)
                         .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
+                        .addGap(53, 53, 53)
                         .addComponent(btnAddComment)))
-                .addGap(33, 33, 33))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
+                .addGap(38, 38, 38)
                 .addComponent(btnBack)
-                .addGap(40, 40, 40)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAddComment))
-                .addGap(36, 36, 36))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

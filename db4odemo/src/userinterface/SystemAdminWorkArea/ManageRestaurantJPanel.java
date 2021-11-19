@@ -272,6 +272,11 @@ public class ManageRestaurantJPanel extends javax.swing.JPanel {
         Employee employee = new Employee();
         employee.setName(updateManagerName);
         AdminRole role = new AdminRole();
+         if (!tableRestaurant.getValueAt(row, 5).equals(updateUserName))
+        {
+           JOptionPane.showMessageDialog(this, "username cannot be changed", "change username", 2);
+           return;
+        }
         UserAccount userAccount =  system.getUserAccountDirectory().createUserAccount(updateUserName, updatePassword, employee,role);
         Restaurant restaurant = new Restaurant(updateRestaurantName, updateLocation, userAccount);
         
