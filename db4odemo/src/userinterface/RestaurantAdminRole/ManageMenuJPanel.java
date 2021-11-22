@@ -37,7 +37,7 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
         model = (DefaultTableModel) tableItem.getModel();
         btnGroupAvail.add(btnYes);
         btnGroupAvail.add(btnNo);
-        displayMenu(restaurant.getMenu().getItemsList());
+        
         
     }
 
@@ -65,6 +65,7 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
         btnDeleteItem = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         btnViewItems = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
 
         jLabel1.setText("Item");
 
@@ -91,6 +92,7 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tableItem);
 
+        btnAddItem.setBackground(new java.awt.Color(102, 204, 255));
         btnAddItem.setText("Add");
         btnAddItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,6 +100,7 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnUpdateItem.setBackground(new java.awt.Color(102, 204, 255));
         btnUpdateItem.setText("Update");
         btnUpdateItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,6 +108,7 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnDeleteItem.setBackground(new java.awt.Color(102, 204, 255));
         btnDeleteItem.setText("Delete");
         btnDeleteItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,6 +116,7 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnBack.setBackground(new java.awt.Color(102, 204, 255));
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,12 +124,17 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnViewItems.setBackground(new java.awt.Color(102, 204, 255));
         btnViewItems.setText("View");
         btnViewItems.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnViewItemsActionPerformed(evt);
             }
         });
+
+        jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel8.setText("Manage Menu");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -161,14 +171,21 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
                                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(btnBack)))
+                        .addComponent(btnBack)
+                        .addGap(87, 87, 87)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(98, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(btnBack)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(btnBack))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel8)))
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
@@ -243,7 +260,7 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
         
         if (!isNumber(updatestrPrice))
         {
-            JOptionPane.showMessageDialog(this,"Invalid Age. Please insert a number");
+            JOptionPane.showMessageDialog(this,"Invalid Price. Please insert a number");
             return;
         }
         
@@ -353,6 +370,7 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableItem;
     private javax.swing.JTextField txtItem;

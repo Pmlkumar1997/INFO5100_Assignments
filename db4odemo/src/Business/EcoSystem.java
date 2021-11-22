@@ -6,7 +6,6 @@
 package Business;
 
 
-import Business.Customer.Customer;
 import Business.Customer.CustomerDirectory;
 import Business.DeliveryMan.DeliveryManDirectory;
 import Business.Restaurant.RestaurantDirectory;
@@ -59,7 +58,7 @@ public class EcoSystem extends Organization{
     
     
     public boolean checkIfUserIsUnique(String userName){
-       //
+        
        return false;
     }
 

@@ -67,6 +67,7 @@ public class ManageRestaurantJPanel extends javax.swing.JPanel {
         btnUpdateRestaurant = new javax.swing.JButton();
         btnDeleteRestaurant = new javax.swing.JButton();
         btnView = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
         jLabel1.setText("Restaurant Name");
 
@@ -95,6 +96,7 @@ public class ManageRestaurantJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tableRestaurant);
 
+        btnSave.setBackground(new java.awt.Color(102, 204, 255));
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,6 +104,7 @@ public class ManageRestaurantJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnBack.setBackground(new java.awt.Color(102, 204, 255));
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,6 +112,7 @@ public class ManageRestaurantJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnUpdateRestaurant.setBackground(new java.awt.Color(102, 204, 255));
         btnUpdateRestaurant.setText("Update");
         btnUpdateRestaurant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,6 +120,7 @@ public class ManageRestaurantJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnDeleteRestaurant.setBackground(new java.awt.Color(102, 204, 255));
         btnDeleteRestaurant.setText("Delete");
         btnDeleteRestaurant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,12 +128,17 @@ public class ManageRestaurantJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnView.setBackground(new java.awt.Color(102, 204, 255));
         btnView.setText("View");
         btnView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnViewActionPerformed(evt);
             }
         });
+
+        jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel6.setText("Manage Restaurant");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -164,7 +174,9 @@ public class ManageRestaurantJPanel extends javax.swing.JPanel {
                                 .addComponent(btnView))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addComponent(btnBack))
+                        .addComponent(btnBack)
+                        .addGap(143, 143, 143)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(57, 57, 57)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -173,8 +185,13 @@ public class ManageRestaurantJPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(btnBack)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(btnBack))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -272,16 +289,21 @@ public class ManageRestaurantJPanel extends javax.swing.JPanel {
         Employee employee = new Employee();
         employee.setName(updateManagerName);
         AdminRole role = new AdminRole();
-         if (!tableRestaurant.getValueAt(row, 5).equals(updateUserName))
+        String UserName = model.getValueAt(row, 3).toString();
+         if (!UserName.equals(updateUserName))
         {
            JOptionPane.showMessageDialog(this, "username cannot be changed", "change username", 2);
            return;
         }
+        system.getUserAccountDirectory().removeUserAccount(UserName);
         UserAccount userAccount =  system.getUserAccountDirectory().createUserAccount(updateUserName, updatePassword, employee,role);
         Restaurant restaurant = new Restaurant(updateRestaurantName, updateLocation, userAccount);
         
+        //system.getUserAccountDirectory().getUserAccountList().get(row).setPassword(updatePassword);
+        //system.getUserAccountDirectory().getUserAccountList().get(row).setEmployee(employee);
         system.getRestaurantDirectory().getRestaurantList().get(row).setRestaurantName(updateRestaurantName);
         system.getRestaurantDirectory().getRestaurantList().get(row).setLocation(updateLocation);
+        system.getRestaurantDirectory().getRestaurantList().get(row).setUserAccount(userAccount);
         
         displayRestaurant();
         JOptionPane.showMessageDialog(this, "Restaurant information updated successfully.!!", "updated restaurant",1);
@@ -353,6 +375,7 @@ public class ManageRestaurantJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableRestaurant;
     private javax.swing.JTextField txtManager;

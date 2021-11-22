@@ -70,6 +70,7 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
         btnUpdateDeliveryMan = new javax.swing.JButton();
         btnDeleteDeliveryMan = new javax.swing.JButton();
         btnViewDeliveryMen = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
 
         tableDeliveryMan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -88,6 +89,7 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
 
         jLabel5.setText("Contact");
 
+        btnBack.setBackground(new java.awt.Color(102, 204, 255));
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +99,7 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Name");
 
+        btnSave.setBackground(new java.awt.Color(102, 204, 255));
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,6 +121,7 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
 
         jLabel7.setText("Password");
 
+        btnUpdateDeliveryMan.setBackground(new java.awt.Color(102, 204, 255));
         btnUpdateDeliveryMan.setText("Update");
         btnUpdateDeliveryMan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,6 +129,7 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnDeleteDeliveryMan.setBackground(new java.awt.Color(102, 204, 255));
         btnDeleteDeliveryMan.setText("Delete");
         btnDeleteDeliveryMan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,6 +137,7 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnViewDeliveryMen.setBackground(new java.awt.Color(102, 204, 255));
         btnViewDeliveryMen.setText("View");
         btnViewDeliveryMen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,35 +145,16 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel8.setText("Manage Delivery Man");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(235, 235, 235)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addGap(86, 86, 86)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnMale)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnFemale))
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtMail, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtUser, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtpwd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(240, 240, 240)
                         .addComponent(btnSave)
@@ -178,18 +165,49 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnViewDeliveryMen))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(btnBack))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(48, 48, 48)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(93, 93, 93)
+                            .addComponent(btnBack)
+                            .addGap(120, 120, 120)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(235, 235, 235)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel7))
+                            .addGap(86, 86, 86)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnMale)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnFemale))
+                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtMail, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtUser, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtpwd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))))))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(btnBack)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(btnBack))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel8)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -319,8 +337,12 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
 //        }
         
         int updateage = Integer.parseInt(updatestrAge);
+        String username = model.getValueAt(row, 5).toString();
         
-        DeliveryMan deliveryMan = new DeliveryMan(updatename, updateage, updatesex, updatemail, updatecontact, updateuser, updatepwd);
+       
+        system.getUserAccountDirectory().removeUserAccount(username);
+        
+        //DeliveryMan deliveryMan = new DeliveryMan(updatename, updateage, updatesex, updatemail, updatecontact, updateuser, updatepwd);
         
         system.getDeliveryManDirectory().getDeliveryManList().get(row).setName(updatename);
         system.getDeliveryManDirectory().getDeliveryManList().get(row).setAge(updateage);
@@ -331,9 +353,11 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
         //txtUser.setEditable(false);
         system.getDeliveryManDirectory().getDeliveryManList().get(row).setPassword(updatepwd);
         
+        DeliveryMan deliveryMan = system.getDeliveryManDirectory().getDeliveryManList().get(row);
+
         system.getUserAccountDirectory().createDeliverymanAccount(updateuser, updatepwd, deliveryMan);
         
-        if (!tableDeliveryMan.getValueAt(row, 5).equals(updateuser))
+        if (!username.equals(updateuser))
         {
            JOptionPane.showMessageDialog(this, "username cannot be changed", "change username", 2);
            return;
@@ -341,7 +365,7 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
         
         displayDeliveryMen();
 
-        JOptionPane.showMessageDialog(this, "Customer information updated successfully.!!", "updated customer",1);
+        JOptionPane.showMessageDialog(this, "Delivery man information updated successfully.!!", "updated delivery man",1);
         clearField();
     }//GEN-LAST:event_btnUpdateDeliveryManActionPerformed
 
@@ -440,6 +464,7 @@ public class ManageDeliveryManJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tableDeliveryMan;
     private javax.swing.JTextField txtAge;

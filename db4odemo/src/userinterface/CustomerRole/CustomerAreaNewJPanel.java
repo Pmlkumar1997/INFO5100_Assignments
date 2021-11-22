@@ -42,7 +42,9 @@ public class CustomerAreaNewJPanel extends javax.swing.JPanel {
 
         btnPlaceOrder = new javax.swing.JButton();
         btnOrderStatus = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
 
+        btnPlaceOrder.setBackground(new java.awt.Color(102, 204, 255));
         btnPlaceOrder.setText("Place Order");
         btnPlaceOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -50,6 +52,7 @@ public class CustomerAreaNewJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnOrderStatus.setBackground(new java.awt.Color(102, 204, 255));
         btnOrderStatus.setText("Order Status");
         btnOrderStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,21 +60,32 @@ public class CustomerAreaNewJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel8.setText("Customer Work Area");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(btnPlaceOrder)
-                .addGap(59, 59, 59)
-                .addComponent(btnOrderStatus)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(btnPlaceOrder)
+                        .addGap(59, 59, 59)
+                        .addComponent(btnOrderStatus))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(130, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(107, 107, 107)
+                .addGap(27, 27, 27)
+                .addComponent(jLabel8)
+                .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPlaceOrder)
                     .addComponent(btnOrderStatus))
@@ -98,5 +112,6 @@ public class CustomerAreaNewJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOrderStatus;
     private javax.swing.JButton btnPlaceOrder;
+    private javax.swing.JLabel jLabel8;
     // End of variables declaration//GEN-END:variables
 }

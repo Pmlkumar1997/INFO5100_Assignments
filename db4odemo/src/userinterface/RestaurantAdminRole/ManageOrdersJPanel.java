@@ -63,6 +63,7 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         boxDeliveryMan = new javax.swing.JComboBox<>();
         btnViewAllOrders = new javax.swing.JButton();
         btnViewActiveOrders = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
 
         tableOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -79,6 +80,7 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tableOrder);
 
+        btnAccept.setBackground(new java.awt.Color(102, 204, 255));
         btnAccept.setText("Accept");
         btnAccept.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,6 +88,7 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnReject.setBackground(new java.awt.Color(102, 204, 255));
         btnReject.setText("Reject");
         btnReject.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,6 +96,7 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnAssign.setBackground(new java.awt.Color(102, 204, 255));
         btnAssign.setText("Assign");
         btnAssign.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,6 +104,7 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnBack.setBackground(new java.awt.Color(102, 204, 255));
         btnBack.setText("<< Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,6 +114,7 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
 
         boxDeliveryMan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Delivery Man" }));
 
+        btnViewAllOrders.setBackground(new java.awt.Color(102, 204, 255));
         btnViewAllOrders.setText("View All Orders");
         btnViewAllOrders.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,12 +122,17 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnViewActiveOrders.setBackground(new java.awt.Color(102, 204, 255));
         btnViewActiveOrders.setText("View Active Orders");
         btnViewActiveOrders.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnViewActiveOrdersActionPerformed(evt);
             }
         });
+
+        jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel8.setText("Manage Orders");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -130,7 +141,10 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnBack)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnBack)
+                        .addGap(113, 113, 113)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAccept)
@@ -150,8 +164,13 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(btnBack)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(btnBack))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel8)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
@@ -268,7 +287,7 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         WorkQueue workQueue = restaurant.getWorkQueue();
         for (WorkRequest workRequest : workQueue.getWorkRequestList()) {
 
-            if (workRequest.getStatus().equalsIgnoreCase("Ordered")) {
+            if (workRequest.getStatus().equalsIgnoreCase("Ordered") || workRequest.getStatus().equalsIgnoreCase("Accepted") || workRequest.getStatus().equalsIgnoreCase("Assigned") || workRequest.getStatus().equalsIgnoreCase("On the Way")) {
                 activeList.add(workRequest);
             }
         }
@@ -304,6 +323,7 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnReject;
     private javax.swing.JButton btnViewActiveOrders;
     private javax.swing.JButton btnViewAllOrders;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableOrder;
     // End of variables declaration//GEN-END:variables

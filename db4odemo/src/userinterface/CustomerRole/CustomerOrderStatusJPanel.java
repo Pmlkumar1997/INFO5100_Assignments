@@ -51,6 +51,7 @@ public class CustomerOrderStatusJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         txtComment = new javax.swing.JTextField();
         btnAddComment = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
 
         tableOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -75,6 +76,7 @@ public class CustomerOrderStatusJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tableOrder);
 
+        btnBack.setBackground(new java.awt.Color(102, 204, 255));
         btnBack.setText("<< Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,12 +87,17 @@ public class CustomerOrderStatusJPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel1.setText("Comments");
 
+        btnAddComment.setBackground(new java.awt.Color(102, 204, 255));
         btnAddComment.setText("Add Comment");
         btnAddComment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddCommentActionPerformed(evt);
             }
         });
+
+        jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel8.setText("Order Status");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -111,13 +118,18 @@ public class CustomerOrderStatusJPanel extends javax.swing.JPanel {
                         .addGap(54, 54, 54)
                         .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(53, 53, 53)
-                        .addComponent(btnAddComment)))
+                        .addComponent(btnAddComment))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(379, 379, 379)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBack)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -193,6 +205,7 @@ public class CustomerOrderStatusJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnAddComment;
     private javax.swing.JButton btnBack;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableOrder;
     private javax.swing.JTextField txtComment;

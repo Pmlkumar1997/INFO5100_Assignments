@@ -5,7 +5,6 @@
  */
 package Business.Restaurant;
 
-import Business.Employee.Employee;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +16,7 @@ public class RestaurantDirectory {
     private ArrayList<Restaurant> restaurantList;
 
     public RestaurantDirectory() {
-        restaurantList = new ArrayList();
+        restaurantList = new ArrayList<>();
     }
 
     public ArrayList<Restaurant> getRestaurantList() {

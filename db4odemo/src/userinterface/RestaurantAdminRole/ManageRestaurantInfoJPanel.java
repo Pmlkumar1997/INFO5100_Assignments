@@ -47,9 +47,11 @@ public class ManageRestaurantInfoJPanel extends javax.swing.JPanel {
         btnUpdate = new javax.swing.JButton();
         boxLocation = new javax.swing.JComboBox<>();
         btnBack = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
 
         jLabel2.setText("Location");
 
+        btnUpdate.setBackground(new java.awt.Color(102, 204, 255));
         btnUpdate.setText("Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,12 +61,17 @@ public class ManageRestaurantInfoJPanel extends javax.swing.JPanel {
 
         boxLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "Boylston", "Cambridge", "Malden", "Roxbury", "Somerville" }));
 
+        btnBack.setBackground(new java.awt.Color(102, 204, 255));
         btnBack.setText("<<Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
             }
         });
+
+        jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel8.setText("Manage Restaurant Info");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -81,13 +88,18 @@ public class ManageRestaurantInfoJPanel extends javax.swing.JPanel {
                             .addComponent(btnBack)
                             .addComponent(jLabel2))
                         .addGap(53, 53, 53)
-                        .addComponent(boxLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(227, Short.MAX_VALUE))
+                        .addComponent(boxLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(137, 137, 137)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(139, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGap(19, 19, 19)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBack)
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -128,5 +140,6 @@ public class ManageRestaurantInfoJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel8;
     // End of variables declaration//GEN-END:variables
 }
